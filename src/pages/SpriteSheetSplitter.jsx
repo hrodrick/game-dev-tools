@@ -162,28 +162,40 @@ export default function SpriteSheetSplitter() {
 }
 
 function GridOverlay({ cellWidth, cellHeight, imgRef }) {
-  const [dimensions, setDimensions] = useState({ w: 0, h: 0 });
+  const [overlayDims, setOverlayDims] = useState({
+    displayW: 0,
+    displayH: 0,
+    natW: 0,
+    natH: 0
+  });
   React.useEffect(() => {
     if (imgRef.current) {
-      setDimensions({
-        w: imgRef.current.width,
-        h: imgRef.current.height
+      setOverlayDims({
+        displayW: imgRef.current.width,
+        displayH: imgRef.current.height,
+        natW: imgRef.current.naturalWidth,
+        natH: imgRef.current.naturalHeight
       });
     }
   }, [imgRef.current, cellWidth, cellHeight]);
 
-  if (!dimensions.w || !dimensions.h) return null;
-  const cols = Math.floor(dimensions.w / cellWidth);
-  const rows = Math.floor(dimensions.h / cellHeight);
+  const { displayW, displayH, natW, natH } = overlayDims;
+  if (!displayW || !displayH || !natW || !natH) return null;
+
+  // Calculate grid lines in natural image coordinates, then scale
+  const cols = Math.floor(natW / cellWidth);
+  const rows = Math.floor(natH / cellHeight);
+  const scaleX = displayW / natW;
+  const scaleY = displayH / natH;
   const gridLines = [];
   // Vertical lines
   for (let i = 1; i < cols; i++) {
     gridLines.push(
       <div key={`v${i}`} style={{
         position: 'absolute',
-        left: i * cellWidth,
+        left: i * cellWidth * scaleX,
         top: 0,
-        height: dimensions.h,
+        height: displayH,
         width: 1,
         background: 'rgba(64,120,192,0.6)',
         zIndex: 2
@@ -195,9 +207,9 @@ function GridOverlay({ cellWidth, cellHeight, imgRef }) {
     gridLines.push(
       <div key={`h${i}`} style={{
         position: 'absolute',
-        top: i * cellHeight,
+        top: i * cellHeight * scaleY,
         left: 0,
-        width: dimensions.w,
+        width: displayW,
         height: 1,
         background: 'rgba(64,120,192,0.6)',
         zIndex: 2
@@ -209,8 +221,8 @@ function GridOverlay({ cellWidth, cellHeight, imgRef }) {
       position: 'absolute',
       left: 0,
       top: 0,
-      width: dimensions.w,
-      height: dimensions.h,
+      width: displayW,
+      height: displayH,
       pointerEvents: 'none',
       zIndex: 2
     }}>
