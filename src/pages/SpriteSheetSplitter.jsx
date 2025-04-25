@@ -11,6 +11,10 @@ export default function SpriteSheetSplitter() {
   const [frames, setFrames] = useState([]);
   const [error, setError] = useState('');
   const [imgInfo, setImgInfo] = useState(null); // { name, size, width, height }
+  const [paddingLeft, setPaddingLeft] = useState(0);
+  const [paddingRight, setPaddingRight] = useState(0);
+  const [paddingTop, setPaddingTop] = useState(0);
+  const [paddingBottom, setPaddingBottom] = useState(0);
   const imgRef = useRef();
 
   const handleFileChange = (e) => {
@@ -37,6 +41,24 @@ export default function SpriteSheetSplitter() {
     if (!imgRef.current || !imgInfo) return;
     let w, h;
     let splitCols, splitRows;
+    const img = imgRef.current;
+    const imgW = img.naturalWidth;
+    const imgH = img.naturalHeight;
+    // Padding validation
+    const padL = parseInt(paddingLeft, 10) || 0;
+    const padR = parseInt(paddingRight, 10) || 0;
+    const padT = parseInt(paddingTop, 10) || 0;
+    const padB = parseInt(paddingBottom, 10) || 0;
+    if (padL < 0 || padR < 0 || padT < 0 || padB < 0) {
+      setError('Paddings cannot be negative.');
+      return;
+    }
+    if (imgW - padL - padR <= 0 || imgH - padT - padB <= 0) {
+      setError('Paddings are too large for this image.');
+      return;
+    }
+    let usableW = imgW - padL - padR;
+    let usableH = imgH - padT - padB;
     if (splitMode === 'size') {
       w = parseInt(cellWidth, 10);
       h = parseInt(cellHeight, 10);
@@ -44,10 +66,10 @@ export default function SpriteSheetSplitter() {
         setError('Cell width and height must be positive numbers.');
         return;
       }
-      splitCols = Math.floor(imgRef.current.naturalWidth / w);
-      splitRows = Math.floor(imgRef.current.naturalHeight / h);
+      splitCols = Math.floor(usableW / w);
+      splitRows = Math.floor(usableH / h);
       if (splitCols === 0 || splitRows === 0) {
-        setError('Cell size is too large for this image.');
+        setError('Cell size is too large for this image or paddings.');
         return;
       }
     } else {
@@ -61,16 +83,15 @@ export default function SpriteSheetSplitter() {
         setError('Columns and rows must be positive numbers.');
         return;
       }
-      w = Math.floor(imgRef.current.naturalWidth / parsedCols);
-      h = Math.floor(imgRef.current.naturalHeight / parsedRows);
+      w = Math.floor(usableW / parsedCols);
+      h = Math.floor(usableH / parsedRows);
       if (w === 0 || h === 0) {
-        setError('Too many columns or rows for this image size.');
+        setError('Too many columns or rows for this image size or paddings.');
         return;
       }
       splitCols = parsedCols;
       splitRows = parsedRows;
     }
-    const img = imgRef.current;
     const tempFrames = [];
     const canvas = document.createElement('canvas');
     canvas.width = w;
@@ -79,8 +100,19 @@ export default function SpriteSheetSplitter() {
     for (let y = 0; y < splitRows; y++) {
       for (let x = 0; x < splitCols; x++) {
         ctx.clearRect(0, 0, w, h);
-        ctx.drawImage(img, x * w, y * h, w, h, 0, 0, w, h);
-        tempFrames.push(canvas.toDataURL());
+        ctx.drawImage(
+          img,
+          padL + x * w,
+          padT + y * h,
+          w,
+          h,
+          0,
+          0,
+          w,
+          h
+        );
+        tempFrames.push(canvas.toDataURL()); // (unchanged, just for context)
+
       }
     }
     setFrames(tempFrames);
@@ -158,6 +190,45 @@ export default function SpriteSheetSplitter() {
             </div>
           </>
         )}
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <label style={{ fontWeight: 500, marginRight: 4 }}>Padding:</label>
+          <input
+            type="number"
+            min="0"
+            placeholder="Left"
+            value={paddingLeft}
+            onChange={e => setPaddingLeft(e.target.value)}
+            style={{ width: 55 }}
+          />
+          <span style={{ fontWeight: 500, margin: '0 2px' }}>L</span>
+          <input
+            type="number"
+            min="0"
+            placeholder="Right"
+            value={paddingRight}
+            onChange={e => setPaddingRight(e.target.value)}
+            style={{ width: 55 }}
+          />
+          <span style={{ fontWeight: 500, margin: '0 2px' }}>R</span>
+          <input
+            type="number"
+            min="0"
+            placeholder="Top"
+            value={paddingTop}
+            onChange={e => setPaddingTop(e.target.value)}
+            style={{ width: 55 }}
+          />
+          <span style={{ fontWeight: 500, margin: '0 2px' }}>T</span>
+          <input
+            type="number"
+            min="0"
+            placeholder="Bottom"
+            value={paddingBottom}
+            onChange={e => setPaddingBottom(e.target.value)}
+            style={{ width: 55 }}
+          />
+          <span style={{ fontWeight: 500, margin: '0 2px' }}>B</span>
+        </div>
         <button
           onClick={handleSplit}
           style={{ padding: '8px 20px', background: '#4078c0', color: 'white', border: 'none', borderRadius: 6, cursor: 'pointer', height: 38 }}
@@ -200,42 +271,42 @@ export default function SpriteSheetSplitter() {
               onError={() => setError('Failed to load image.')}
               id="sprite-sheet-preview"
             />
-            {/* Overlay grid */}
-            {(splitMode === 'size' && cellWidth && cellHeight && !isNaN(parseInt(cellWidth)) && !isNaN(parseInt(cellHeight))) ||
-             (splitMode === 'grid' && columns && rows && !isNaN(parseInt(columns)) && !isNaN(parseInt(rows))) ? (
-              <GridOverlay
-                cellWidth={splitMode === 'size' ? parseInt(cellWidth) : undefined}
-                cellHeight={splitMode === 'size' ? parseInt(cellHeight) : undefined}
-                imgRef={imgRef}
-                splitMode={splitMode}
-                columns={columns}
-                rows={rows}
-              />
-            ) : null}
+            <GridOverlay
+              cellWidth={splitMode === 'size' ? parseInt(cellWidth, 10) || 1 : 1}
+              cellHeight={splitMode === 'size' ? parseInt(cellHeight, 10) || 1 : 1}
+              imgRef={imgRef}
+              splitMode={splitMode}
+              columns={columns}
+              rows={rows}
+              paddingLeft={paddingLeft}
+              paddingRight={paddingRight}
+              paddingTop={paddingTop}
+              paddingBottom={paddingBottom}
+            />
           </div>
-        </>
-      )}
-      {frames.length > 0 && (
-        <div style={{ marginTop: 18 }}>
-          <h4>Frames:</h4>
-          <DownloadAllButton frames={frames} />
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, margin: '12px 0' }}>
-            {frames.map((frame, i) => (
-              <div key={i} style={{ textAlign: 'center' }}>
-                <img src={frame} alt={`frame ${i}`} style={{ width: 64, height: 64, objectFit: 'contain', border: '1px solid #ccc', borderRadius: 4 }} />
-                <br />
-                <a href={frame} download={`frame_${i + 1}.png`} style={{ fontSize: 13, color: '#4078c0', textDecoration: 'underline' }}>Download</a>
+          {frames.length > 0 && (
+            <div style={{ marginTop: 18 }}>
+              <h4>Frames:</h4>
+              <DownloadAllButton frames={frames} />
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, margin: '12px 0' }}>
+                {frames.map((frame, i) => (
+                  <div key={i} style={{ textAlign: 'center' }}>
+                    <img src={frame} alt={`frame ${i}`} style={{ width: 64, height: 64, objectFit: 'contain', border: '1px solid #ccc', borderRadius: 4 }} />
+                    <br />
+                    <a href={frame} download={`frame_${i + 1}.png`} style={{ fontSize: 13, color: '#4078c0', textDecoration: 'underline' }}>Download</a>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <DownloadAllButton frames={frames} />
-        </div>
+              <DownloadAllButton frames={frames} />
+            </div>
+          )}
+        </>
       )}
     </div>
   );
 }
 
-function GridOverlay({ cellWidth, cellHeight, imgRef, splitMode, columns, rows }) {
+function GridOverlay({ cellWidth, cellHeight, imgRef, splitMode, columns, rows, paddingLeft = 0, paddingRight = 0, paddingTop = 0, paddingBottom = 0 }) {
   const [overlayDims, setOverlayDims] = useState({
     displayW: 0,
     displayH: 0,
@@ -271,33 +342,61 @@ function GridOverlay({ cellWidth, cellHeight, imgRef, splitMode, columns, rows }
   const scaleX = displayW / natW;
   const scaleY = displayH / natH;
   const gridLines = [];
-  // Vertical lines
+
+  // Paddings overlay box (magenta border)
+  const padL = parseInt(paddingLeft, 10) || 0;
+  const padR = parseInt(paddingRight, 10) || 0;
+  const padT = parseInt(paddingTop, 10) || 0;
+  const padB = parseInt(paddingBottom, 10) || 0;
+  const padBox = (
+    <div
+      key="padding-preview"
+      style={{
+        position: 'absolute',
+        left: padL * scaleX,
+        top: padT * scaleY,
+        width: (natW - padL - padR) * scaleX,
+        height: (natH - padT - padB) * scaleY,
+        border: '2px dashed magenta',
+        boxSizing: 'border-box',
+        pointerEvents: 'none',
+        zIndex: 3
+      }}
+    />
+  );
+  // Grid area origin and size
+  const gridOriginX = padL * scaleX;
+  const gridOriginY = padT * scaleY;
+  const gridAreaW = (natW - padL - padR) * scaleX;
+  const gridAreaH = (natH - padT - padB) * scaleY;
+
+  // Vertical lines (inside padded area)
   for (let i = 1; i < gridCols; i++) {
     gridLines.push(
       <div key={`v${i}`} style={{
         position: 'absolute',
-        left: i * w * scaleX,
-        top: 0,
-        height: displayH,
+        left: gridOriginX + i * (gridAreaW / gridCols),
+        top: gridOriginY,
+        height: gridAreaH,
         width: 1,
         background: 'rgba(64,120,192,0.6)',
         zIndex: 2
       }} />
     );
   }
-  // Horizontal lines
+  // Horizontal lines (inside padded area)
   for (let i = 1; i < gridRows; i++) {
     gridLines.push(
       <div key={`h${i}`} style={{
         position: 'absolute',
-        top: i * h * scaleY,
-        left: 0,
-        width: displayW,
+        top: gridOriginY + i * (gridAreaH / gridRows),
+        left: gridOriginX,
+        width: gridAreaW,
         height: 1,
         background: 'rgba(64,120,192,0.6)',
         zIndex: 2
       }} />
-    );
+    );              
   }
   return (
     <div style={{
@@ -309,6 +408,7 @@ function GridOverlay({ cellWidth, cellHeight, imgRef, splitMode, columns, rows }
       pointerEvents: 'none',
       zIndex: 2
     }}>
+      {padBox}
       {gridLines}
     </div>
   );
