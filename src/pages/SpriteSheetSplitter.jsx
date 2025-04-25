@@ -3,8 +3,11 @@ import JSZip from 'jszip';
 
 export default function SpriteSheetSplitter() {
   const [image, setImage] = useState(null);
+  const [splitMode, setSplitMode] = useState('size'); // 'size' or 'grid'
   const [cellWidth, setCellWidth] = useState('');
   const [cellHeight, setCellHeight] = useState('');
+  const [columns, setColumns] = useState('');
+  const [rows, setRows] = useState('');
   const [frames, setFrames] = useState([]);
   const [error, setError] = useState('');
   const [imgInfo, setImgInfo] = useState(null); // { name, size, width, height }
@@ -31,27 +34,50 @@ export default function SpriteSheetSplitter() {
   const handleSplit = () => {
     setError('');
     setFrames([]);
-    if (!imgRef.current) return;
-    const w = parseInt(cellWidth, 10);
-    const h = parseInt(cellHeight, 10);
-    if (!w || !h || w <= 0 || h <= 0) {
-      setError('Cell width and height must be positive numbers.');
-      return;
+    if (!imgRef.current || !imgInfo) return;
+    let w, h;
+    let splitCols, splitRows;
+    if (splitMode === 'size') {
+      w = parseInt(cellWidth, 10);
+      h = parseInt(cellHeight, 10);
+      if (!w || !h || w <= 0 || h <= 0) {
+        setError('Cell width and height must be positive numbers.');
+        return;
+      }
+      splitCols = Math.floor(imgRef.current.naturalWidth / w);
+      splitRows = Math.floor(imgRef.current.naturalHeight / h);
+      if (splitCols === 0 || splitRows === 0) {
+        setError('Cell size is too large for this image.');
+        return;
+      }
+    } else {
+      const parsedCols = Number(columns);
+      const parsedRows = Number(rows);
+      if (isNaN(parsedCols) || isNaN(parsedRows)) {
+        setError('Columns and rows must be valid numbers.');
+        return;
+      }
+      if (parsedCols <= 0 || parsedRows <= 0) {
+        setError('Columns and rows must be positive numbers.');
+        return;
+      }
+      w = Math.floor(imgRef.current.naturalWidth / parsedCols);
+      h = Math.floor(imgRef.current.naturalHeight / parsedRows);
+      if (w === 0 || h === 0) {
+        setError('Too many columns or rows for this image size.');
+        return;
+      }
+      splitCols = parsedCols;
+      splitRows = parsedRows;
     }
     const img = imgRef.current;
-    const cols = Math.floor(img.naturalWidth / w);
-    const rows = Math.floor(img.naturalHeight / h);
-    if (cols === 0 || rows === 0) {
-      setError('Cell size is too large for this image.');
-      return;
-    }
     const tempFrames = [];
     const canvas = document.createElement('canvas');
     canvas.width = w;
     canvas.height = h;
     const ctx = canvas.getContext('2d');
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < cols; x++) {
+    for (let y = 0; y < splitRows; y++) {
+      for (let x = 0; x < splitCols; x++) {
         ctx.clearRect(0, 0, w, h);
         ctx.drawImage(img, x * w, y * h, w, h, 0, 0, w, h);
         tempFrames.push(canvas.toDataURL());
@@ -59,6 +85,7 @@ export default function SpriteSheetSplitter() {
     }
     setFrames(tempFrames);
   };
+
 
   return (
     <div style={{ maxWidth: 700, margin: '0 auto' }}>
@@ -74,28 +101,71 @@ export default function SpriteSheetSplitter() {
           />
         </div>
         <div>
-          <label style={{ fontWeight: 500, marginRight: 4 }}>Cell Width:</label>
-          <input
-            type="number"
-            min="1"
-            placeholder="Width"
-            value={cellWidth}
-            onChange={e => setCellWidth(e.target.value)}
-            style={{ width: 80, marginRight: 16 }}
-          />
+          <label style={{ fontWeight: 500, marginRight: 6 }}>Split Mode:</label>
+          <select value={splitMode} onChange={e => setSplitMode(e.target.value)} style={{ marginRight: 18, padding: '4px 8px', fontSize: 15 }}>
+            <option value="size">By Width/Height</option>
+            <option value="grid">By Columns/Rows</option>
+          </select>
         </div>
-        <div>
-          <label style={{ fontWeight: 500, marginRight: 4 }}>Cell Height:</label>
-          <input
-            type="number"
-            min="1"
-            placeholder="Height"
-            value={cellHeight}
-            onChange={e => setCellHeight(e.target.value)}
-            style={{ width: 80, marginRight: 16 }}
-          />
-        </div>
-        <button onClick={handleSplit} style={{ padding: '8px 20px', background: '#4078c0', color: 'white', border: 'none', borderRadius: 6, cursor: 'pointer', height: 38 }}>
+        {splitMode === 'size' ? (
+          <>
+            <div>
+              <label style={{ fontWeight: 500, marginRight: 4 }}>Cell Width:</label>
+              <input
+                type="number"
+                min="1"
+                placeholder="Width"
+                value={cellWidth}
+                onChange={e => setCellWidth(e.target.value)}
+                style={{ width: 80, marginRight: 16 }}
+              />
+            </div>
+            <div>
+              <label style={{ fontWeight: 500, marginRight: 4 }}>Cell Height:</label>
+              <input
+                type="number"
+                min="1"
+                placeholder="Height"
+                value={cellHeight}
+                onChange={e => setCellHeight(e.target.value)}
+                style={{ width: 80, marginRight: 16 }}
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <div>
+              <label style={{ fontWeight: 500, marginRight: 4 }}>Columns:</label>
+              <input
+                type="number"
+                min="1"
+                placeholder="Columns"
+                value={columns}
+                onChange={e => setColumns(e.target.value)}
+                style={{ width: 80, marginRight: 16 }}
+              />
+            </div>
+            <div>
+              <label style={{ fontWeight: 500, marginRight: 4 }}>Rows:</label>
+              <input
+                type="number"
+                min="1"
+                placeholder="Rows"
+                value={rows}
+                onChange={e => setRows(e.target.value)}
+                style={{ width: 80, marginRight: 16 }}
+              />
+            </div>
+          </>
+        )}
+        <button
+          onClick={handleSplit}
+          style={{ padding: '8px 20px', background: '#4078c0', color: 'white', border: 'none', borderRadius: 6, cursor: 'pointer', height: 38 }}
+          disabled={
+            (splitMode === 'size' && (!cellWidth || !cellHeight || isNaN(Number(cellWidth)) || isNaN(Number(cellHeight)) || Number(cellWidth) <= 0 || Number(cellHeight) <= 0)) ||
+            (splitMode === 'grid' && (!columns || !rows || isNaN(Number(columns)) || isNaN(Number(rows)) || Number(columns) <= 0 || Number(rows) <= 0))
+          }
+        >
           Split
         </button>
       </div>
@@ -131,13 +201,17 @@ export default function SpriteSheetSplitter() {
               id="sprite-sheet-preview"
             />
             {/* Overlay grid */}
-            {cellWidth && cellHeight && !isNaN(parseInt(cellWidth)) && !isNaN(parseInt(cellHeight)) && (
+            {(splitMode === 'size' && cellWidth && cellHeight && !isNaN(parseInt(cellWidth)) && !isNaN(parseInt(cellHeight))) ||
+             (splitMode === 'grid' && columns && rows && !isNaN(parseInt(columns)) && !isNaN(parseInt(rows))) ? (
               <GridOverlay
-                cellWidth={parseInt(cellWidth)}
-                cellHeight={parseInt(cellHeight)}
+                cellWidth={splitMode === 'size' ? parseInt(cellWidth) : undefined}
+                cellHeight={splitMode === 'size' ? parseInt(cellHeight) : undefined}
                 imgRef={imgRef}
+                splitMode={splitMode}
+                columns={columns}
+                rows={rows}
               />
-            )}
+            ) : null}
           </div>
         </>
       )}
@@ -161,7 +235,7 @@ export default function SpriteSheetSplitter() {
   );
 }
 
-function GridOverlay({ cellWidth, cellHeight, imgRef }) {
+function GridOverlay({ cellWidth, cellHeight, imgRef, splitMode, columns, rows }) {
   const [overlayDims, setOverlayDims] = useState({
     displayW: 0,
     displayH: 0,
@@ -177,23 +251,32 @@ function GridOverlay({ cellWidth, cellHeight, imgRef }) {
         natH: imgRef.current.naturalHeight
       });
     }
-  }, [imgRef.current, cellWidth, cellHeight]);
+  }, [imgRef.current, cellWidth, cellHeight, splitMode, columns, rows]);
 
   const { displayW, displayH, natW, natH } = overlayDims;
   if (!displayW || !displayH || !natW || !natH) return null;
 
-  // Calculate grid lines in natural image coordinates, then scale
-  const cols = Math.floor(natW / cellWidth);
-  const rows = Math.floor(natH / cellHeight);
+  let gridCols, gridRows, w, h;
+  if (splitMode === 'size') {
+    w = cellWidth;
+    h = cellHeight;
+    gridCols = Math.floor(natW / w);
+    gridRows = Math.floor(natH / h);
+  } else {
+    gridCols = parseInt(columns, 10) || 0;
+    gridRows = parseInt(rows, 10) || 0;
+    w = gridCols > 0 ? Math.floor(natW / gridCols) : 0;
+    h = gridRows > 0 ? Math.floor(natH / gridRows) : 0;
+  }
   const scaleX = displayW / natW;
   const scaleY = displayH / natH;
   const gridLines = [];
   // Vertical lines
-  for (let i = 1; i < cols; i++) {
+  for (let i = 1; i < gridCols; i++) {
     gridLines.push(
       <div key={`v${i}`} style={{
         position: 'absolute',
-        left: i * cellWidth * scaleX,
+        left: i * w * scaleX,
         top: 0,
         height: displayH,
         width: 1,
@@ -203,11 +286,11 @@ function GridOverlay({ cellWidth, cellHeight, imgRef }) {
     );
   }
   // Horizontal lines
-  for (let i = 1; i < rows; i++) {
+  for (let i = 1; i < gridRows; i++) {
     gridLines.push(
       <div key={`h${i}`} style={{
         position: 'absolute',
-        top: i * cellHeight * scaleY,
+        top: i * h * scaleY,
         left: 0,
         width: displayW,
         height: 1,
