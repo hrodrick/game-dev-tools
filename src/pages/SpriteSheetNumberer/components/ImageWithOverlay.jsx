@@ -19,11 +19,14 @@ const ImageWithOverlay = ({ imgUrl, columns, rows, fontSize }) => {
       style={{
         position: "relative",
         width: "100%",
-        maxWidth: 600,
-        margin: "32px auto 0 auto",
+        maxWidth: 1200,
+        margin: "0 auto",
         borderRadius: 8,
         boxShadow: "0 2px 8px #0001",
         background: "#f7f7f7",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <img
