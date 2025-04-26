@@ -34,6 +34,9 @@ export default function Header() {
       <Link to="/split" style={navButtonStyle}>
         Sprite Sheet Splitter
       </Link>
+      <Link to="/cell-numberer" style={navButtonStyle}>
+        Cell Numberer
+      </Link>
     </header>
   );
 }

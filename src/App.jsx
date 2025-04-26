@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import SpriteSheetCombiner from './pages/SpriteSheetCombiner';
 import SpriteSheetSplitter from './pages/SpriteSheetSplitter';
+import SpriteSheetNumberer from './pages/SpriteSheetNumberer/SpriteSheetNumberer';
 import Header from './components/Header';
 import AdPlaceholder from './components/AdPlaceholder';
 
@@ -19,6 +20,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/combine" element={<SpriteSheetCombiner />} />
             <Route path="/split" element={<SpriteSheetSplitter />} />
+            <Route path="/cell-numberer" element={<SpriteSheetNumberer />} />
           </Routes>
         </div>
         <div style={{ margin: '0 12px' }}>
