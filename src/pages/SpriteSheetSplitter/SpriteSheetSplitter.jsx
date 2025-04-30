@@ -5,6 +5,8 @@ import useSpriteSheetSplitter from './hooks/useSpriteSheetSplitter';
 import { splitSpritesheet } from './utils/splitSpritesheet';
 
 export default function SpriteSheetSplitter() {
+  const [isDragging, setIsDragging] = React.useState(false);
+  const uploadInputRef = React.useRef();
   const {
     image, setImage,
     splitMode, setSplitMode,
@@ -66,12 +68,45 @@ export default function SpriteSheetSplitter() {
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 32, marginBottom: 12 }}>
         {/* Left: Preview */}
         <div style={{ flex: 1 }}>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            style={{ padding: '8px 20px', background: '#4078c0', color: 'white', border: 'none', borderRadius: 6, cursor: 'pointer', height: 38, marginBottom: 12 }}
-          />
+          <div
+            onDrop={e => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsDragging(false);
+              if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                handleFileChange({ target: { files: e.dataTransfer.files } });
+                e.dataTransfer.clearData();
+              }
+            }}
+            onDragOver={e => { e.preventDefault(); setIsDragging(true); }}
+            onDragLeave={e => { e.preventDefault(); setIsDragging(false); }}
+            onClick={() => uploadInputRef.current && uploadInputRef.current.click()}
+            style={{
+              border: isDragging ? '2px solid #4078c0' : '2px dashed #bbb',
+              borderRadius: 8,
+              padding: 24,
+              marginBottom: 12,
+              background: isDragging ? '#eaf3ff' : '#fafbfc',
+              textAlign: 'center',
+              cursor: 'pointer',
+              color: '#333',
+              minWidth: 220
+            }}
+            tabIndex={0}
+            aria-label="Upload or drag and drop image"
+          >
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              style={{ display: 'none' }}
+              ref={uploadInputRef}
+            />
+            <span style={{ fontSize: 15 }}>
+              Drag & drop image here<br />
+              <span style={{ color: '#888', fontSize: 13 }}>or click to select a file</span>
+            </span>
+          </div>
           {error && <div style={{ color: 'red', marginBottom: 12 }}>{error}</div>}
           {image && (
             <>

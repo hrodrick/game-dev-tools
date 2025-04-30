@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 
 export default function SpriteSheetCombiner() {
+  const [isDragging, setIsDragging] = useState(false);
+  const uploadInputRef = useRef();
   const [images, setImages] = useState([]);
   const [spriteSheetUrl, setSpriteSheetUrl] = useState(null);
   const [error, setError] = useState('');
@@ -54,12 +56,46 @@ export default function SpriteSheetCombiner() {
     <div style={{ maxWidth: 700, margin: '0 auto' }}>
       <h2>Sprite Sheet Combiner</h2>
       <div style={{ margin: '18px 0', display: 'flex', flexWrap: 'wrap', gap: 16 }}>
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleFileChange}
-        />
+        <div
+          onDrop={e => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsDragging(false);
+            if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+              handleFileChange({ target: { files: e.dataTransfer.files } });
+              e.dataTransfer.clearData();
+            }
+          }}
+          onDragOver={e => { e.preventDefault(); setIsDragging(true); }}
+          onDragLeave={e => { e.preventDefault(); setIsDragging(false); }}
+          onClick={() => uploadInputRef.current && uploadInputRef.current.click()}
+          style={{
+            border: isDragging ? '2px solid #4078c0' : '2px dashed #bbb',
+            borderRadius: 8,
+            padding: 24,
+            marginBottom: 12,
+            background: isDragging ? '#eaf3ff' : '#fafbfc',
+            textAlign: 'center',
+            cursor: 'pointer',
+            color: '#333',
+            minWidth: 220
+          }}
+          tabIndex={0}
+          aria-label="Upload or drag and drop images"
+        >
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleFileChange}
+            style={{ display: 'none' }}
+            ref={uploadInputRef}
+          />
+          <span style={{ fontSize: 15 }}>
+            Drag & drop images here<br />
+            <span style={{ color: '#888', fontSize: 13 }}>or click to select files</span>
+          </span>
+        </div>
         <button
           onClick={handleCombine}
           style={{ padding: '8px 20px', background: '#4078c0', color: 'white', border: 'none', borderRadius: 6, cursor: 'pointer' }}
