@@ -1,8 +1,8 @@
 import React from 'react';
-import GridOverlay from './SpriteSheetSplitter/components/GridOverlay';
-import DownloadAllButton from './SpriteSheetSplitter/components/DownloadAllButton';
-import useSpriteSheetSplitter from './SpriteSheetSplitter/hooks/useSpriteSheetSplitter';
-import { splitSpritesheet } from './SpriteSheetSplitter/utils/splitSpritesheet';
+import GridOverlay from './components/GridOverlay';
+import DownloadAllButton from './components/DownloadAllButton';
+import useSpriteSheetSplitter from './hooks/useSpriteSheetSplitter';
+import { splitSpritesheet } from './utils/splitSpritesheet';
 
 export default function SpriteSheetSplitter() {
   const {
@@ -37,8 +37,6 @@ export default function SpriteSheetSplitter() {
       height: null
     });
   };
-
-
 
   const handleSplit = () => {
     setError('');

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
-import SpriteSheetCombiner from './pages/SpriteSheetCombiner';
-import SpriteSheetSplitter from './pages/SpriteSheetSplitter';
+import SpriteSheetCombiner from './pages/SpriteSheetCombiner/SpriteSheetCombiner';
+import SpriteSheetSplitter from './pages/SpriteSheetSplitter/SpriteSheetSplitter';
 import SpriteSheetNumberer from './pages/SpriteSheetNumberer/SpriteSheetNumberer';
 import Header from './components/Header';
 import AdPlaceholder from './components/AdPlaceholder';
