@@ -13,6 +13,7 @@ export default function PitchRandomizer() {
   const [minPitch, setMinPitch] = useState(DEFAULT_PITCH);
   const [maxPitch, setMaxPitch] = useState(DEFAULT_PITCH);
   const [error, setError] = useState("");
+  const [lastPitch, setLastPitch] = useState(null);
   const audioBufferRef = useRef(null);
   const audioContextRef = useRef(null);
 
@@ -53,7 +54,8 @@ export default function PitchRandomizer() {
     const source = context.createBufferSource();
     source.buffer = audioBufferRef.current;
     // Random pitch between min and max
-    const pitch = minPitch === maxPitch ? minPitch : (Math.random() * (maxPitch - minPitch) + minPitch);
+    const pitch = minPitch === maxPitch ? parseFloat(minPitch) : (Math.random() * (parseFloat(maxPitch) - parseFloat(minPitch)) + parseFloat(minPitch));
+    setLastPitch(pitch);
     source.playbackRate.value = pitch;
     source.connect(context.destination);
     source.start(0);
@@ -157,6 +159,11 @@ export default function PitchRandomizer() {
         Play
       </button>
       {error && <div style={{ color: "red", marginTop: 16 }}>{error}</div>}
+      {lastPitch !== null && (
+        <div style={{ marginTop: 16, color: '#0070f3', fontWeight: 500 }}>
+          Pitch used: {lastPitch.toFixed(3)}
+        </div>
+      )}
       {audioFile && (
         <div style={{ marginTop: 16, color: "#555" }}>
           <b>File:</b> {audioFile.name}
