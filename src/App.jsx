@@ -6,6 +6,7 @@ import SpriteSheetSplitter from "./pages/SpriteSheetSplitter/SpriteSheetSplitter
 import AspectRatioCalculator from "./pages/AspectRatioCalculator/AspectRatioCalculator";
 import SafeAreaCalculator from "./pages/SafeAreaCalculator/SafeAreaCalculator";
 import SpriteSheetNumberer from './pages/SpriteSheetNumberer/SpriteSheetNumberer';
+import PitchRandomizer from './pages/PitchRandomizer/PitchRandomizer';
 import Header from './components/Header';
 import AdPlaceholder from './components/AdPlaceholder';
 
@@ -22,6 +23,7 @@ export default function App() {
             <Link to="/" style={{ marginRight: 16 }}>Home</Link>
             <Link to="/combine" style={{ marginRight: 16 }}>Spritesheet Combiner</Link>
             <Link to="/split" style={{ marginRight: 16 }}>Spritesheet Splitter</Link>
+            <Link to="/pitch-randomizer" style={{ marginRight: 16 }}>Pitch Randomizer</Link>
             <Link to="/cell-numberer" style={{ marginRight: 16 }}>Sprite Sheet Numberer</Link>
             <Link to="/aspect-ratio-calculator" style={{ marginRight: 16 }}>Aspect Ratio Calculator</Link>
             <Link to="/safe-area-calculator" style={{ marginRight: 16 }}>Safe Area Calculator</Link>
@@ -30,6 +32,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/combine" element={<SpriteSheetCombiner />} />
             <Route path="/split" element={<SpriteSheetSplitter />} />
+            <Route path="/pitch-randomizer" element={<PitchRandomizer />} />
             <Route path="/cell-numberer" element={<SpriteSheetNumberer />} />
             <Route path="/aspect-ratio-calculator" element={<AspectRatioCalculator />} />
             <Route path="/safe-area-calculator" element={<SafeAreaCalculator />} />

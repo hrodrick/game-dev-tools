@@ -12,6 +12,9 @@ export default function Home() {
         <Link to="/split">
           <button style={buttonStyle}>Sprite Sheet Splitter</button>
         </Link>
+        <Link to="/pitch-randomizer">
+          <button style={buttonStyle}>Pitch Randomizer</button>
+        </Link>
       </div>
     </div>
   );
