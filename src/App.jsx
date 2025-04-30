@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import SpriteSheetCombiner from "./pages/SpriteSheetCombiner/SpriteSheetCombiner";
 import SpriteSheetSplitter from "./pages/SpriteSheetSplitter/SpriteSheetSplitter";
 import AspectRatioCalculator from "./pages/AspectRatioCalculator/AspectRatioCalculator";
+import SafeAreaCalculator from "./pages/SafeAreaCalculator/SafeAreaCalculator";
 import SpriteSheetNumberer from './pages/SpriteSheetNumberer/SpriteSheetNumberer';
 import Header from './components/Header';
 import AdPlaceholder from './components/AdPlaceholder';
@@ -23,6 +24,7 @@ export default function App() {
             <Link to="/split" style={{ marginRight: 16 }}>Spritesheet Splitter</Link>
             <Link to="/cell-numberer" style={{ marginRight: 16 }}>Sprite Sheet Numberer</Link>
             <Link to="/aspect-ratio-calculator" style={{ marginRight: 16 }}>Aspect Ratio Calculator</Link>
+            <Link to="/safe-area-calculator" style={{ marginRight: 16 }}>Safe Area Calculator</Link>
           </nav>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -30,6 +32,7 @@ export default function App() {
             <Route path="/split" element={<SpriteSheetSplitter />} />
             <Route path="/cell-numberer" element={<SpriteSheetNumberer />} />
             <Route path="/aspect-ratio-calculator" element={<AspectRatioCalculator />} />
+            <Route path="/safe-area-calculator" element={<SafeAreaCalculator />} />
           </Routes>
         </div>
         <div style={{ margin: '0 12px' }}>
