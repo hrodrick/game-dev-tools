@@ -24,9 +24,9 @@ const ImageWithOverlay = ({ imgUrl, columns, rows, fontSize }) => {
         borderRadius: 8,
         boxShadow: "0 2px 8px #0001",
         background: "#f7f7f7",
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <img
@@ -57,8 +57,12 @@ const ImageWithOverlay = ({ imgUrl, columns, rows, fontSize }) => {
             borderRadius: 8,
             background: "transparent",
           }}
-          renderedWidth={imgRef.current ? imgRef.current.clientWidth : undefined}
-          renderedHeight={imgRef.current ? imgRef.current.clientHeight : undefined}
+          renderedWidth={
+            imgRef.current ? imgRef.current.clientWidth : undefined
+          }
+          renderedHeight={
+            imgRef.current ? imgRef.current.clientHeight : undefined
+          }
         />
       )}
     </div>

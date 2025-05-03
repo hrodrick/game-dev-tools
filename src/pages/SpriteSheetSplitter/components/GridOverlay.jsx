@@ -1,11 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-export default function GridOverlay({ cellWidth, cellHeight, imgRef, splitMode, columns, rows, paddingLeft = 0, paddingRight = 0, paddingTop = 0, paddingBottom = 0 }) {
+export default function GridOverlay({
+  cellWidth,
+  cellHeight,
+  imgRef,
+  splitMode,
+  columns,
+  rows,
+  paddingLeft = 0,
+  paddingRight = 0,
+  paddingTop = 0,
+  paddingBottom = 0,
+}) {
   const [overlayDims, setOverlayDims] = useState({
     displayW: 0,
     displayH: 0,
     natW: 0,
-    natH: 0
+    natH: 0,
   });
   useEffect(() => {
     if (imgRef.current) {
@@ -13,25 +24,56 @@ export default function GridOverlay({ cellWidth, cellHeight, imgRef, splitMode, 
         displayW: imgRef.current.width,
         displayH: imgRef.current.height,
         natW: imgRef.current.naturalWidth,
-        natH: imgRef.current.naturalHeight
+        natH: imgRef.current.naturalHeight,
       });
     }
-  }, [imgRef.current, cellWidth, cellHeight, splitMode, columns, rows, paddingLeft, paddingRight, paddingTop, paddingBottom]);
+  }, [
+    imgRef.current,
+    cellWidth,
+    cellHeight,
+    splitMode,
+    columns,
+    rows,
+    paddingLeft,
+    paddingRight,
+    paddingTop,
+    paddingBottom,
+  ]);
 
   const { displayW, displayH, natW, natH } = overlayDims;
   if (!displayW || !displayH || !natW || !natH) return null;
 
   let gridCols, gridRows, w, h;
-  if (splitMode === 'size') {
+  if (splitMode === "size") {
     w = cellWidth;
     h = cellHeight;
-    gridCols = Math.floor((natW - (parseInt(paddingLeft) || 0) - (parseInt(paddingRight) || 0)) / w);
-    gridRows = Math.floor((natH - (parseInt(paddingTop) || 0) - (parseInt(paddingBottom) || 0)) / h);
+    gridCols = Math.floor(
+      (natW - (parseInt(paddingLeft) || 0) - (parseInt(paddingRight) || 0)) / w,
+    );
+    gridRows = Math.floor(
+      (natH - (parseInt(paddingTop) || 0) - (parseInt(paddingBottom) || 0)) / h,
+    );
   } else {
     gridCols = parseInt(columns, 10) || 0;
     gridRows = parseInt(rows, 10) || 0;
-    w = gridCols > 0 ? Math.floor((natW - (parseInt(paddingLeft) || 0) - (parseInt(paddingRight) || 0)) / gridCols) : 0;
-    h = gridRows > 0 ? Math.floor((natH - (parseInt(paddingTop) || 0) - (parseInt(paddingBottom) || 0)) / gridRows) : 0;
+    w =
+      gridCols > 0
+        ? Math.floor(
+            (natW -
+              (parseInt(paddingLeft) || 0) -
+              (parseInt(paddingRight) || 0)) /
+              gridCols,
+          )
+        : 0;
+    h =
+      gridRows > 0
+        ? Math.floor(
+            (natH -
+              (parseInt(paddingTop) || 0) -
+              (parseInt(paddingBottom) || 0)) /
+              gridRows,
+          )
+        : 0;
   }
   const scaleX = displayW / natW;
   const scaleY = displayH / natH;
@@ -46,15 +88,15 @@ export default function GridOverlay({ cellWidth, cellHeight, imgRef, splitMode, 
     <div
       key="padding-preview"
       style={{
-        position: 'absolute',
+        position: "absolute",
         left: padL * scaleX,
         top: padT * scaleY,
         width: (natW - padL - padR) * scaleX,
         height: (natH - padT - padB) * scaleY,
-        border: '2px dashed magenta',
-        boxSizing: 'border-box',
-        pointerEvents: 'none',
-        zIndex: 3
+        border: "2px dashed magenta",
+        boxSizing: "border-box",
+        pointerEvents: "none",
+        zIndex: 3,
       }}
     />
   );
@@ -67,41 +109,49 @@ export default function GridOverlay({ cellWidth, cellHeight, imgRef, splitMode, 
   // Vertical lines (inside padded area)
   for (let i = 1; i < gridCols; i++) {
     gridLines.push(
-      <div key={`v${i}`} style={{
-        position: 'absolute',
-        left: gridOriginX + i * (gridAreaW / gridCols),
-        top: gridOriginY,
-        height: gridAreaH,
-        width: 1,
-        background: 'rgba(64,120,192,0.6)',
-        zIndex: 2
-      }} />
+      <div
+        key={`v${i}`}
+        style={{
+          position: "absolute",
+          left: gridOriginX + i * (gridAreaW / gridCols),
+          top: gridOriginY,
+          height: gridAreaH,
+          width: 1,
+          background: "rgba(64,120,192,0.6)",
+          zIndex: 2,
+        }}
+      />,
     );
   }
   // Horizontal lines (inside padded area)
   for (let i = 1; i < gridRows; i++) {
     gridLines.push(
-      <div key={`h${i}`} style={{
-        position: 'absolute',
-        top: gridOriginY + i * (gridAreaH / gridRows),
-        left: gridOriginX,
-        width: gridAreaW,
-        height: 1,
-        background: 'rgba(64,120,192,0.6)',
-        zIndex: 2
-      }} />
+      <div
+        key={`h${i}`}
+        style={{
+          position: "absolute",
+          top: gridOriginY + i * (gridAreaH / gridRows),
+          left: gridOriginX,
+          width: gridAreaW,
+          height: 1,
+          background: "rgba(64,120,192,0.6)",
+          zIndex: 2,
+        }}
+      />,
     );
   }
   return (
-    <div style={{
-      position: 'absolute',
-      left: 0,
-      top: 0,
-      width: displayW,
-      height: displayH,
-      pointerEvents: 'none',
-      zIndex: 2
-    }}>
+    <div
+      style={{
+        position: "absolute",
+        left: 0,
+        top: 0,
+        width: displayW,
+        height: displayH,
+        pointerEvents: "none",
+        zIndex: 2,
+      }}
+    >
       {padBox}
       {gridLines}
     </div>

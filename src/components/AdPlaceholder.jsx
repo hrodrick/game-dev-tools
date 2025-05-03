@@ -1,23 +1,11 @@
-import React from 'react';
+import React from "react";
 
 export default function AdPlaceholder({ position }) {
   return (
-    <div
-      style={{
-        background: '#e0e4ea',
-        color: '#888',
-        textAlign: 'center',
-        borderRadius: 8,
-        margin: position === 'bottom' ? '24px 0 0 0' : '0',
-        width: position === 'side' ? 160 : '100%',
-        height: position === 'side' ? 600 : 90,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 18,
-      }}
-    >
+    <div className="card bg-base-300 min-h-24 md:min-h-96 shadow-sm">
+      <div className="card-body">
       Ad Placeholder ({position})
+      </div>
     </div>
   );
 }

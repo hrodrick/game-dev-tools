@@ -1,14 +1,14 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from "react";
 
 export default function useSpriteSheetSplitter() {
   const [image, setImage] = useState(null);
-  const [splitMode, setSplitMode] = useState('size');
-  const [cellWidth, setCellWidth] = useState('');
-  const [cellHeight, setCellHeight] = useState('');
-  const [columns, setColumns] = useState('2');
-  const [rows, setRows] = useState('2');
+  const [splitMode, setSplitMode] = useState("size");
+  const [cellWidth, setCellWidth] = useState("");
+  const [cellHeight, setCellHeight] = useState("");
+  const [columns, setColumns] = useState("2");
+  const [rows, setRows] = useState("2");
   const [frames, setFrames] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [imgInfo, setImgInfo] = useState(null);
 
   // Set default cellWidth/cellHeight to half the image size when image info is available
@@ -28,19 +28,32 @@ export default function useSpriteSheetSplitter() {
   const imgRef = useRef();
 
   return {
-    image, setImage,
-    splitMode, setSplitMode,
-    cellWidth, setCellWidth,
-    cellHeight, setCellHeight,
-    columns, setColumns,
-    rows, setRows,
-    frames, setFrames,
-    error, setError,
-    imgInfo, setImgInfo,
-    paddingLeft, setPaddingLeft,
-    paddingRight, setPaddingRight,
-    paddingTop, setPaddingTop,
-    paddingBottom, setPaddingBottom,
-    imgRef
+    image,
+    setImage,
+    splitMode,
+    setSplitMode,
+    cellWidth,
+    setCellWidth,
+    cellHeight,
+    setCellHeight,
+    columns,
+    setColumns,
+    rows,
+    setRows,
+    frames,
+    setFrames,
+    error,
+    setError,
+    imgInfo,
+    setImgInfo,
+    paddingLeft,
+    setPaddingLeft,
+    paddingRight,
+    setPaddingRight,
+    paddingTop,
+    setPaddingTop,
+    paddingBottom,
+    setPaddingBottom,
+    imgRef,
   };
 }

@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+    themes: abyss --default;
+    root: ":root";
+    include: ;
+    exclude: ;
+    prefix: ;
+    logs: true;
+}

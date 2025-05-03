@@ -35,53 +35,99 @@ export default function SafeAreaCalculator() {
   };
 
   return (
-    <div style={{ maxWidth: 600, margin: "40px auto", padding: 24, background: "#fafbfc", borderRadius: 10, boxShadow: "0 2px 12px #0001" }}>
+    <div
+      style={{
+        maxWidth: 600,
+        margin: "40px auto",
+        padding: 24,
+        background: "#fafbfc",
+        borderRadius: 10,
+        boxShadow: "0 2px 12px #0001",
+      }}
+    >
       <h2>Safe Area Calculator</h2>
       <div style={{ marginBottom: 20 }}>
         <label>
           Width:
-          <input type="number" value={width} min={1} onChange={e => setWidth(Number(e.target.value))} style={{ width: 90, marginLeft: 10 }} />
+          <input
+            type="number"
+            value={width}
+            min={1}
+            onChange={(e) => setWidth(Number(e.target.value))}
+            style={{ width: 90, marginLeft: 10 }}
+          />
         </label>
         <label style={{ marginLeft: 24 }}>
           Height:
-          <input type="number" value={height} min={1} onChange={e => setHeight(Number(e.target.value))} style={{ width: 90, marginLeft: 10 }} />
+          <input
+            type="number"
+            value={height}
+            min={1}
+            onChange={(e) => setHeight(Number(e.target.value))}
+            style={{ width: 90, marginLeft: 10 }}
+          />
         </label>
       </div>
       <div style={{ marginBottom: 20 }}>
-        <b>Title Safe Padding (5%):</b> {titleSafe.left}px left/right, {titleSafe.top}px top/bottom<br />
-        <b>Action Safe Padding (2.5%):</b> {actionSafe.left}px left/right, {actionSafe.top}px top/bottom
+        <b>Title Safe Padding (5%):</b> {titleSafe.left}px left/right,{" "}
+        {titleSafe.top}px top/bottom
+        <br />
+        <b>Action Safe Padding (2.5%):</b> {actionSafe.left}px left/right,{" "}
+        {actionSafe.top}px top/bottom
       </div>
-      <div style={{ margin: "32px 0", display: 'flex', justifyContent: 'center' }}>
-        <div style={{ position: 'relative', width: previewWidth, height: previewHeight, background: '#222', borderRadius: 8, overflow: 'hidden', border: '2px solid #999' }}>
+      <div
+        style={{ margin: "32px 0", display: "flex", justifyContent: "center" }}
+      >
+        <div
+          style={{
+            position: "relative",
+            width: previewWidth,
+            height: previewHeight,
+            background: "#222",
+            borderRadius: 8,
+            overflow: "hidden",
+            border: "2px solid #999",
+          }}
+        >
           {/* Title Safe Area */}
-          <div style={{
-            position: 'absolute',
-            left: tSafe.left,
-            top: tSafe.top,
-            width: previewWidth - tSafe.left - tSafe.right,
-            height: previewHeight - tSafe.top - tSafe.bottom,
-            border: '2px solid #2b87ff',
-            boxSizing: 'border-box',
-            pointerEvents: 'none',
-            borderRadius: 4,
-          }} />
+          <div
+            style={{
+              position: "absolute",
+              left: tSafe.left,
+              top: tSafe.top,
+              width: previewWidth - tSafe.left - tSafe.right,
+              height: previewHeight - tSafe.top - tSafe.bottom,
+              border: "2px solid #2b87ff",
+              boxSizing: "border-box",
+              pointerEvents: "none",
+              borderRadius: 4,
+            }}
+          />
           {/* Action Safe Area */}
-          <div style={{
-            position: 'absolute',
-            left: aSafe.left,
-            top: aSafe.top,
-            width: previewWidth - aSafe.left - aSafe.right,
-            height: previewHeight - aSafe.top - aSafe.bottom,
-            border: '2px dashed #ffb300',
-            boxSizing: 'border-box',
-            pointerEvents: 'none',
-            borderRadius: 4,
-          }} />
+          <div
+            style={{
+              position: "absolute",
+              left: aSafe.left,
+              top: aSafe.top,
+              width: previewWidth - aSafe.left - aSafe.right,
+              height: previewHeight - aSafe.top - aSafe.bottom,
+              border: "2px dashed #ffb300",
+              boxSizing: "border-box",
+              pointerEvents: "none",
+              borderRadius: 4,
+            }}
+          />
         </div>
       </div>
-      <div style={{ fontSize: 14, color: '#555', marginTop: 12 }}>
-        <b>What is this?</b><br />
-        "Safe areas" are recommended margins for UI on TVs and some monitors. Important text and UI should stay inside the <span style={{ color: '#2b87ff' }}>Title Safe</span> area, and essential visuals inside the <span style={{ color: '#ffb300' }}>Action Safe</span> area. This helps avoid overscan/trimming on TVs and ensures a good user experience.
+      <div style={{ fontSize: 14, color: "#555", marginTop: 12 }}>
+        <b>What is this?</b>
+        <br />
+        "Safe areas" are recommended margins for UI on TVs and some monitors.
+        Important text and UI should stay inside the{" "}
+        <span style={{ color: "#2b87ff" }}>Title Safe</span> area, and essential
+        visuals inside the <span style={{ color: "#ffb300" }}>Action Safe</span>{" "}
+        area. This helps avoid overscan/trimming on TVs and ensures a good user
+        experience.
       </div>
     </div>
   );

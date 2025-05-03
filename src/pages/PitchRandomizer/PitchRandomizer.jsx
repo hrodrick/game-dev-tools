@@ -49,12 +49,18 @@ export default function PitchRandomizer() {
       setError("Min pitch cannot be greater than max pitch.");
       return;
     }
-    const context = audioContextRef.current || new (window.AudioContext || window.webkitAudioContext)();
+    const context =
+      audioContextRef.current ||
+      new (window.AudioContext || window.webkitAudioContext)();
     audioContextRef.current = context;
     const source = context.createBufferSource();
     source.buffer = audioBufferRef.current;
     // Random pitch between min and max
-    const pitch = minPitch === maxPitch ? parseFloat(minPitch) : (Math.random() * (parseFloat(maxPitch) - parseFloat(minPitch)) + parseFloat(minPitch));
+    const pitch =
+      minPitch === maxPitch
+        ? parseFloat(minPitch)
+        : Math.random() * (parseFloat(maxPitch) - parseFloat(minPitch)) +
+          parseFloat(minPitch);
     setLastPitch(pitch);
     source.playbackRate.value = pitch;
     source.connect(context.destination);
@@ -62,9 +68,21 @@ export default function PitchRandomizer() {
   };
 
   return (
-    <div style={{ maxWidth: 480, margin: "40px auto", padding: 24, background: "#fff", borderRadius: 12, boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>
+    <div
+      style={{
+        maxWidth: 480,
+        margin: "40px auto",
+        padding: 24,
+        background: "#fff",
+        borderRadius: 12,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+      }}
+    >
       <h2>Pitch Randomizer</h2>
-      <p>Upload a sound file, set min/max pitch, and play with a randomized pitch between those values.</p>
+      <p>
+        Upload a sound file, set min/max pitch, and play with a randomized pitch
+        between those values.
+      </p>
       <div style={{ marginBottom: 16 }}>
         <label>
           <b>Upload Sound File:</b>
@@ -79,19 +97,27 @@ export default function PitchRandomizer() {
               await handleFileChange(fakeEvent);
             }
           }}
-          onDragOver={e => { e.preventDefault(); e.stopPropagation(); setDragActive(true); }}
-          onDragLeave={e => { e.preventDefault(); e.stopPropagation(); setDragActive(false); }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setDragActive(true);
+          }}
+          onDragLeave={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setDragActive(false);
+          }}
           style={{
-            border: dragActive ? '2px solid #0070f3' : '2px dashed #bbb',
+            border: dragActive ? "2px solid #0070f3" : "2px dashed #bbb",
             borderRadius: 8,
             padding: 24,
-            textAlign: 'center',
-            background: dragActive ? '#e6f0fa' : '#fafbfc',
+            textAlign: "center",
+            background: dragActive ? "#e6f0fa" : "#fafbfc",
             marginTop: 8,
             marginBottom: 0,
-            cursor: 'pointer',
-            transition: 'border 0.2s, background 0.2s',
-            color: '#333',
+            cursor: "pointer",
+            transition: "border 0.2s, background 0.2s",
+            color: "#333",
           }}
           tabIndex={0}
           aria-label="Upload or drag and drop audio file"
@@ -101,11 +127,14 @@ export default function PitchRandomizer() {
             accept="audio/*"
             onChange={handleFileChange}
             style={{ display: "none" }}
-            ref={inputRef => (uploadInputRef.current = inputRef)}
+            ref={(inputRef) => (uploadInputRef.current = inputRef)}
           />
           <span style={{ fontSize: 16 }}>
-            Drag & drop your audio file here<br />
-            <span style={{ color: '#888', fontSize: 13 }}>or click to select a file</span>
+            Drag & drop your audio file here
+            <br />
+            <span style={{ color: "#888", fontSize: 13 }}>
+              or click to select a file
+            </span>
           </span>
         </div>
       </div>
@@ -116,7 +145,7 @@ export default function PitchRandomizer() {
             type="number"
             step="0.01"
             value={minPitch}
-            onChange={e => {
+            onChange={(e) => {
               const val = e.target.value;
               if (val === "") {
                 setMinPitch("");
@@ -136,7 +165,7 @@ export default function PitchRandomizer() {
             type="number"
             step="0.01"
             value={maxPitch}
-            onChange={e => {
+            onChange={(e) => {
               const val = e.target.value;
               if (val === "") {
                 setMaxPitch("");
@@ -154,13 +183,21 @@ export default function PitchRandomizer() {
       <button
         onClick={handlePlay}
         disabled={!audioFile}
-        style={{ padding: "8px 24px", fontWeight: 600, borderRadius: 6, background: "#0070f3", color: "#fff", border: "none", cursor: audioFile ? "pointer" : "not-allowed" }}
+        style={{
+          padding: "8px 24px",
+          fontWeight: 600,
+          borderRadius: 6,
+          background: "#0070f3",
+          color: "#fff",
+          border: "none",
+          cursor: audioFile ? "pointer" : "not-allowed",
+        }}
       >
         Play
       </button>
       {error && <div style={{ color: "red", marginTop: 16 }}>{error}</div>}
       {lastPitch !== null && (
-        <div style={{ marginTop: 16, color: '#0070f3', fontWeight: 500 }}>
+        <div style={{ marginTop: 16, color: "#0070f3", fontWeight: 500 }}>
           Pitch used: {lastPitch.toFixed(3)}
         </div>
       )}

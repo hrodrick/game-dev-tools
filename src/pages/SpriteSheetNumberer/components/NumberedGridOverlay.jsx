@@ -1,6 +1,14 @@
 import React, { useRef, useEffect, useState } from "react";
 
-const NumberedGridOverlay = ({ imageUrl, columns, rows, fontSize = 18, style = {}, renderedWidth, renderedHeight }) => {
+const NumberedGridOverlay = ({
+  imageUrl,
+  columns,
+  rows,
+  fontSize = 18,
+  style = {},
+  renderedWidth,
+  renderedHeight,
+}) => {
   const canvasRef = useRef(null);
   const [imgDims, setImgDims] = useState({ width: 0, height: 0 });
 
@@ -17,7 +25,7 @@ const NumberedGridOverlay = ({ imageUrl, columns, rows, fontSize = 18, style = {
       drawGrid(img, renderedWidth, renderedHeight);
     };
     img.onerror = (e) => {
-      console.error('Image failed to load', imageUrl, e);
+      console.error("Image failed to load", imageUrl, e);
       setImgDims({ width: 0, height: 0 });
     };
   }, [imageUrl, columns, rows, fontSize, renderedWidth, renderedHeight]);
@@ -53,9 +61,9 @@ const NumberedGridOverlay = ({ imageUrl, columns, rows, fontSize = 18, style = {
         const numX = x + cellWidth - padding;
         const numY = y + padding;
         ctx.lineWidth = 5;
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = "black";
         ctx.strokeText(cellId, numX, numY);
-        ctx.fillStyle = '#fff';
+        ctx.fillStyle = "#fff";
         ctx.fillText(cellId, numX, numY);
         cellId++;
       }
@@ -68,10 +76,18 @@ const NumberedGridOverlay = ({ imageUrl, columns, rows, fontSize = 18, style = {
         ref={canvasRef}
         width={imgDims.width}
         height={imgDims.height}
-        style={{ maxWidth: "100%", height: "auto", border: "1px solid #ccc", background: '#f7f7f7', ...style }}
+        style={{
+          maxWidth: "100%",
+          height: "auto",
+          border: "1px solid #ccc",
+          background: "#f7f7f7",
+          ...style,
+        }}
       />
       {imgDims.width === 0 && (
-        <div style={{ color: 'red', marginTop: 8 }}>Image failed to load or has no dimensions.</div>
+        <div style={{ color: "red", marginTop: 8 }}>
+          Image failed to load or has no dimensions.
+        </div>
       )}
     </>
   );
