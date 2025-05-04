@@ -20,11 +20,12 @@ export default function Footer() {
   const copiedTimeoutRef = useRef(null);
     return (
         <footer className="flex flex-col gap-4">
-            <p className="text-xl p-0">Missing a tool? Have an idea? Join our Discord and Let me know!</p>
+            <div className="divider" />
+            <p className="text-sm p-0">Missing a tool? Have an idea? Join our Discord and Let me know!</p>
             <a className="btn btn-ghost w-24 self-center md:self-start" key={DiscordSocial.name} href={DiscordSocial.url} target="_blank" rel="noopener noreferrer">
                 {DiscordSocial.icon()}
             </a>
-            <p className="text-xl p-0">Or send me a message on your favorite social media!</p>
+            <p className="text-sm p-0">Or send me a message on your favorite social media!</p>
             <div className="grid grid-cols-2 md:w-120 md:grid-cols-4 gap-2 self-center md:self-start">
                 {socials.map((social) => (
                     <a className="btn btn-ghost w-24" key={social.name} href={social.url} target="_blank" rel="noopener noreferrer">
@@ -32,7 +33,7 @@ export default function Footer() {
                     </a>
                 ))}
             </div>
-            <p className="text-xl p-0">Know someone who could use these tools? Share it! They will love you!</p>
+            <p className="text-sm p-0">Know someone who could use these tools? Share it! They will love you!</p>
             <button
                 className="btn w-full h-16 md:w-64 relative"
                 onClick={() => {

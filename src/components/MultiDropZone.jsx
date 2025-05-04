@@ -15,7 +15,7 @@ export default function MultiDropZone({
   multiple = true,
   label = "Drag & drop images here",
   accept = "image/*",
-  style = {},
+  className = {},
   children,
 }) {
   const [isDragging, setIsDragging] = useState(false);
@@ -45,18 +45,7 @@ export default function MultiDropZone({
         setIsDragging(false);
       }}
       onClick={() => inputRef.current && inputRef.current.click()}
-      style={{
-        border: isDragging ? "2px solid #4078c0" : "2px dashed #bbb",
-        borderRadius: 8,
-        padding: 24,
-        marginBottom: 12,
-        background: isDragging ? "#eaf3ff" : "#fafbfc",
-        textAlign: "center",
-        cursor: "pointer",
-        color: "#333",
-        minWidth: 220,
-        ...style,
-      }}
+      className={"flex flex-col justify-center gap-4 p-4 min-h-32 hover:opacity-80 hover:cursor-pointer " + (isDragging ? "bg-base-100 border-2 border-primary border-solid" : "bg-neutral border-2 border-neutral-content border-dashed") + " " + className}
       tabIndex={0}
       aria-label={label}
     >
@@ -69,10 +58,10 @@ export default function MultiDropZone({
         ref={inputRef}
       />
       {children ? children : (
-        <span style={{ fontSize: 15 }}>
+        <span className="text-base text-center text-neutral-content w-full">
           {label}
           <br />
-          <span style={{ color: "#888", fontSize: 13 }}>
+          <span className="text-neutral-content opacity-50 text-center w-full">
             or click to select {multiple ? "files" : "a file"}
           </span>
         </span>
