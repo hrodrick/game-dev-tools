@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import NumberedGridOverlay from "./components/NumberedGridOverlay";
 import ImageWithOverlay from "./components/ImageWithOverlay";
+import MultiDropZone from "../../components/MultiDropZone";
 
 const SpriteSheetCellNumberer = () => {
   const [image, setImage] = useState(null);
@@ -12,7 +12,7 @@ const SpriteSheetCellNumberer = () => {
   const [imgUrl, setImgUrl] = useState("");
   const [fontSize, setFontSize] = useState(DEFAULT_FONT_SIZE);
 
-  const [isDragging, setIsDragging] = useState(false);
+  // No longer need isDragging or drag/drop handlers
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -25,64 +25,23 @@ const SpriteSheetCellNumberer = () => {
     }
   };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      handleImageUpload({ target: { files: e.dataTransfer.files } });
-      e.dataTransfer.clearData();
-    }
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-
   return (
     <div style={{ padding: 24 }}>
       <h2>Spritesheet Cell Numberer</h2>
-      <div
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
+      <MultiDropZone
+        onFilesSelected={files => handleImageUpload({ target: { files } })}
+        multiple={false}
+        accept="image/*"
+        label={imgUrl ? "Drop a new image to replace, or click to choose another file." : "Drag and drop your spritesheet here, or click to choose a file."}
         style={{
-          border: isDragging ? "2px solid #4078c0" : "2px dashed #bbb",
-          borderRadius: 8,
-          padding: 24,
           marginBottom: 24,
-          background: isDragging ? "#eaf3ff" : "#fafbfc",
-          textAlign: "center",
-          cursor: "pointer",
           transition: "border 0.2s, background 0.2s",
           maxWidth: 400,
           minHeight: 100,
           marginLeft: "auto",
           marginRight: "auto",
         }}
-        onClick={() => document.getElementById("fileInput").click()}
-      >
-        <input
-          id="fileInput"
-          type="file"
-          accept="image/*"
-          style={{ display: "none" }}
-          onChange={handleImageUpload}
-        />
-        <span style={{ fontSize: 16 }}>
-          Drag and drop your spritesheet here, or click to choose a file.
-        </span>
-        {imgUrl && (
-          <div style={{ fontSize: 13, color: "#888", marginTop: 8 }}>
-            Drop a new image to replace, or click to choose another file.
-          </div>
-        )}
-      </div>
+      />
       <div style={{ margin: "16px 0", textAlign: "center" }}>
         <label>
           Columns:

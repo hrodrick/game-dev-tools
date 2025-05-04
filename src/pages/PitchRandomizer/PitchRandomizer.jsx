@@ -1,15 +1,12 @@
 import React, { useRef, useState } from "react";
+import MultiDropZone from "../../components/MultiDropZone";
 
 const DEFAULT_PITCH = 1.0;
 const MIN_PITCH = -3;
 const MAX_PITCH = 3.0;
 
 export default function PitchRandomizer() {
-  const [dragActive, setDragActive] = useState(false);
-  const uploadInputRef = useRef(null);
-
   const [audioFile, setAudioFile] = useState(null);
-  const [audioUrl, setAudioUrl] = useState("");
   const [minPitch, setMinPitch] = useState(DEFAULT_PITCH);
   const [maxPitch, setMaxPitch] = useState(DEFAULT_PITCH);
   const [error, setError] = useState("");
@@ -87,55 +84,14 @@ export default function PitchRandomizer() {
         <label>
           <b>Upload Sound File:</b>
         </label>
-        <div
-          onDrop={async (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setDragActive(false);
-            if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-              const fakeEvent = { target: { files: e.dataTransfer.files } };
-              await handleFileChange(fakeEvent);
-            }
-          }}
-          onDragOver={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setDragActive(true);
-          }}
-          onDragLeave={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setDragActive(false);
-          }}
-          style={{
-            border: dragActive ? "2px solid #0070f3" : "2px dashed #bbb",
-            borderRadius: 8,
-            padding: 24,
-            textAlign: "center",
-            background: dragActive ? "#e6f0fa" : "#fafbfc",
-            marginTop: 8,
-            marginBottom: 0,
-            cursor: "pointer",
-            transition: "border 0.2s, background 0.2s",
-            color: "#333",
-          }}
-          tabIndex={0}
-          aria-label="Upload or drag and drop audio file"
-        >
-          <input
-            type="file"
+        <div>
+          <MultiDropZone
+            onFilesSelected={files => handleFileChange({ target: { files } })}
+            multiple={false}
             accept="audio/*"
-            onChange={handleFileChange}
-            style={{ display: "none" }}
-            ref={(inputRef) => (uploadInputRef.current = inputRef)}
+            label="Drag & drop audio file here"
+            style={{ marginTop: 8, marginBottom: 0 }}
           />
-          <span style={{ fontSize: 16 }}>
-            Drag & drop your audio file here
-            <br />
-            <span style={{ color: "#888", fontSize: 13 }}>
-              or click to select a file
-            </span>
-          </span>
         </div>
       </div>
       <div style={{ display: "flex", gap: 16, marginBottom: 16 }}>
