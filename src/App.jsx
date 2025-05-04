@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import SpriteSheetCombiner from "./pages/SpriteSheetCombiner/SpriteSheetCombiner";
 import SpriteSheetSplitter from "./pages/SpriteSheetSplitter/SpriteSheetSplitter";
 import AspectRatioCalculator from "./pages/AspectRatioCalculator/AspectRatioCalculator";
@@ -12,13 +12,13 @@ import AdPlaceholder from "./components/AdPlaceholder";
 
 export default function App() {
   return (
-    <div class="bg-base-100 w-full">
+    <div className="bg-base-100 w-full">
       <Header />
-      <div class="flex flex-col md:flex-row h-full p-4">
-        <div class="w-full md:basis-1/6">
+      <div className="flex flex-col md:flex-row h-full p-4">
+        <div className="w-full md:basis-1/6">
           <AdPlaceholder position="side" />
         </div>
-        <div class="grow h-full p-4">
+        <div className="grow h-full p-4">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/combine" element={<SpriteSheetCombiner />} />
@@ -35,7 +35,7 @@ export default function App() {
             />
           </Routes>
         </div>
-        <div class="basis-1/6 h-full">
+        <div className="basis-1/6 h-full">
           <AdPlaceholder position="side" />
         </div>
       </div>
