@@ -11,9 +11,9 @@ const MAX_LAST_PLAYED_AUDIOS = 5;
 
 export default function InstantAudioPad() {
   const [audioFiles, setAudioFiles] = useState([]); // { file, url, name }
-  const [minPitch, setMinPitch] = useState(DEFAULT_PITCH);
-  const [maxPitch, setMaxPitch] = useState(DEFAULT_PITCH);
-  const [delay, setDelay] = useState(DEFAULT_DELAY); // seconds
+  const [minPitch, setMinPitch] = useState(DEFAULT_PITCH.toString());
+  const [maxPitch, setMaxPitch] = useState(DEFAULT_PITCH.toString());
+  const [delay, setDelay] = useState(DEFAULT_DELAY.toString()); // seconds
   const [playingIndex, setPlayingIndex] = useState(null);
   const [sequencePlaying, setSequencePlaying] = useState(false);
   const [lastPlayed, setLastPlayed] = useState([]); // array of names
@@ -22,13 +22,16 @@ export default function InstantAudioPad() {
   const stopSequenceRef = useRef(false);
 
   const handleFilesSelected = (files) => {
-    const arr = Array.from(files).map((file) => ({
-      file,
-      url: URL.createObjectURL(file),
-      name: file.name,
-    }));
+    const arr = Array.from(files)
+      .filter(file => file.type.startsWith("audio/"))
+      .map((file) => ({
+        file,
+        url: URL.createObjectURL(file),
+        name: file.name,
+      }));
     setAudioFiles(prev => [...prev, ...arr]);
   };
+
 
   const handleClearAll = () => {
     setAudioFiles([]);
@@ -49,7 +52,7 @@ export default function InstantAudioPad() {
       source.buffer = buffer;
       // Random pitch between min and max
       const pitch =
-        minPitch === maxPitch
+        parseFloat(minPitch) === parseFloat(maxPitch)
           ? parseFloat(minPitch)
           : Math.random() * (parseFloat(maxPitch) - parseFloat(minPitch)) + parseFloat(minPitch);
       source.playbackRate.value = pitch;
@@ -78,7 +81,7 @@ export default function InstantAudioPad() {
       await playAudio(audioFiles[i], i);
       if (stopSequenceRef.current) break;
       if (i < audioFiles.length - 1) {
-        await new Promise((res) => setTimeout(res, delay * 1000));
+        await new Promise((res) => setTimeout(res, parseFloat(delay) * 1000));
       }
     }
     setSequencePlaying(false);
@@ -131,16 +134,16 @@ export default function InstantAudioPad() {
       fieldsetContent={
         <div className="flex flex-col gap-2">
           <label className="label">Min Pitch</label>
-          <input className="input" type="number" step="0.01" min={MIN_PITCH} max={MAX_PITCH} value={minPitch} 
-            onChange={e => setMinPitch(Number(e.target.value))}
+          <input className="input" type="number" step="0.01" min={MIN_PITCH} max={MAX_PITCH} value={minPitch}
+            onChange={e => setMinPitch(e.target.value)}
           />
           <label className="label mt-2">Max Pitch</label>
-          <input className="input" type="number" step="0.01" min={MIN_PITCH} max={MAX_PITCH} value={maxPitch} 
-            onChange={e => setMaxPitch(Number(e.target.value))}
+          <input className="input" type="number" step="0.01" min={MIN_PITCH} max={MAX_PITCH} value={maxPitch}
+            onChange={e => setMaxPitch(e.target.value)}
           />
           <label className="label mt-2">Delay between sounds (seconds)</label>
-          <input className="input" type="number" step="0.01" min={0} value={delay} 
-            onChange={e => setDelay(Number(e.target.value))}
+          <input className="input" type="number" step="0.01" min={0} value={delay}
+            onChange={e => setDelay(e.target.value)}
           />
           <button
             className="btn btn-neutral mt-2"
