@@ -7,6 +7,7 @@ import AspectRatioCalculator from "./pages/AspectRatioCalculator/AspectRatioCalc
 import SafeAreaCalculator from "./pages/SafeAreaCalculator/SafeAreaCalculator";
 import SpriteSheetNumberer from "./pages/SpriteSheetNumberer/SpriteSheetNumberer";
 import PitchRandomizer from "./pages/PitchRandomizer/PitchRandomizer";
+import InstantAudioPad from "./pages/InstantAudioPad/InstantAudioPad";
 import Header from "./components/Header";
 import AdPlaceholder from "./components/AdPlaceholder";
 
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/combine" element={<SpriteSheetCombiner />} />
             <Route path="/split" element={<SpriteSheetSplitter />} />
             <Route path="/pitch-randomizer" element={<PitchRandomizer />} />
+            <Route path="/instant-audio-pad" element={<InstantAudioPad />} />
             <Route path="/cell-numberer" element={<SpriteSheetNumberer />} />
             <Route
               path="/aspect-ratio-calculator"

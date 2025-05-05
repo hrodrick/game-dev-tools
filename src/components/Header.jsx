@@ -38,6 +38,7 @@ export default function Header() {
             <summary>Audio</summary>
               <ul className="p-2">
                 <li><a href="/pitch-randomizer">Pitch randomizer</a></li>
+                <li><a href="/instant-audio-pad">Instant Audio Pad</a></li>
               </ul>
             </details>
             </li>
@@ -84,6 +85,7 @@ export default function Header() {
                 tabIndex={2}
                 className={dropdownStyle}>
                 <li><a href="/pitch-randomizer">Pitch randomizer</a></li>
+                <li><a href="/instant-audio-pad">Instant Audio Pad</a></li>
               </ul>
           </li>
           <li className="dropdown">

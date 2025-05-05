@@ -22,9 +22,10 @@ export default function Home() {
       />
       <ToolCard
         title="Audio"
-        description="Only one now, but I'm planning to add a couple more"
+        description="Tired of double-clicking audio files to play them? Waiting for the media player to load? Just try these tools and you'll never go back!"
         buttons={[
           { label: "Pitch Randomizer", url: "/pitch-randomizer" },
+          { label: "Instant Audio Pad", url: "/instant-audio-pad" },
         ]}
       />
       <ToolCard

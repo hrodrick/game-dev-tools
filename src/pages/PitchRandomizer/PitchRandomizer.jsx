@@ -89,7 +89,12 @@ export default function PitchRandomizer() {
   return (
     <ToolPageLayout
       title="Pitch Randomizer"
-      description="Tired of waiting for the media player to load your audio file? Use this tool to quickly play a sound file! And even more, find the perfect pitch range for it right here!"
+      description={
+        <>
+          <h2>Tired of waiting for the media player to load your audio file? Use this tool to quickly play a sound file! And even more, find the perfect pitch range for it right here!</h2>
+          <p>Want to upload multiple files at once? Check out the <a href="/instant-audio-pad" className="link">Instant Audio Pad tool</a>!</p>
+        </>
+      }
       leftContent={
         <div className="flex flex-col gap-4">
           <MultiDropZone
