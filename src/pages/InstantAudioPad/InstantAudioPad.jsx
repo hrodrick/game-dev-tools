@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import ToolPageLayout from "../../components/ToolPageLayout";
 import MultiDropZone from "../../components/MultiDropZone";
+import MultiDropAddsNotice from "../../components/MultiDropAddsNotice";
 
 const DEFAULT_PITCH = 1.0;
 const MIN_PITCH = 0.0;
@@ -26,7 +27,12 @@ export default function InstantAudioPad() {
       url: URL.createObjectURL(file),
       name: file.name,
     }));
-    setAudioFiles(arr);
+    setAudioFiles(prev => [...prev, ...arr]);
+  };
+
+  const handleClearAll = () => {
+    setAudioFiles([]);
+    stopAll();
   };
 
   const playAudio = async (fileObj, index) => {
@@ -100,17 +106,18 @@ export default function InstantAudioPad() {
       leftContent={
         <div className="flex flex-col gap-4">
           <MultiDropZone
-            onFilesSelected={files => handleFilesSelected(files)}
-            multiple={true}
-            accept="audio/*"
-            label="Drag & drop audio files here"
-          />
-          <div className="flex flex-wrap gap-4">
+              onFilesSelected={files => handleFilesSelected(files)}
+              multiple={true}
+              accept="audio/*"
+              label="Drag & drop audio files here"
+            />
+          <MultiDropAddsNotice handleClearAll={handleClearAll} disabled={audioFiles.length === 0} />
+          <div className="flex flex-wrap gap-4 place-content-center">
             {audioFiles.map((fileObj, i) => (
               <button
                 key={fileObj.url}
-                className={`w-24 h-24 p-2 flex items-center justify-center rounded-lg font-bold border-1 border-neutral-content shadow-md transition-colors duration-150 ${
-                  playingIndex === i ? "bg-primary text-primary-content" : "bg-neutral text-neutral-content hover:bg-base-300"
+                className={`w-16 h-16 md:w-24 md:h-24 p-2 flex items-center justify-center rounded-lg font-bold border-1 border-neutral-content shadow-md transition-colors duration-150 ${
+                  playingIndex === i ? "bg-primary text-primary-content" : "bg-neutral text-neutral-content hover:bg-primary-content"
                 }`}
                 onClick={() => handleButtonClick(fileObj, i)}
                 disabled={sequencePlaying}
@@ -151,7 +158,7 @@ export default function InstantAudioPad() {
           </button>
           <div className="mt-2 flex flex-col gap-2">
             <div className="label">Last 5 played sounds:</div>
-            <div className="w-64 overflow-x-scroll scroll-smooth flex flex-col gap-1 pb-2">
+            <div className="w-54 md:w-64 overflow-x-scroll scroll-smooth flex flex-col gap-1 pb-2">
               {lastPlayed.map((name, idx) => (
                 <label key={idx} className="text-xs w-full text-neutral-content whitespace-nowrap mask">{name}</label>
               ))}
