@@ -15,10 +15,10 @@ export default function App() {
     <div className="bg-base-100 w-full">
       <Header />
       <div className="flex flex-col md:flex-row h-full p-4">
-        <div className="w-full md:basis-1/6">
+        <div className="md:basis-1/8">
           <AdPlaceholder position="side" />
         </div>
-        <div className="grow h-full p-4">
+        <div className="grow h-full p-4 md:basis-6/8">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/combine" element={<SpriteSheetCombiner />} />
@@ -35,7 +35,7 @@ export default function App() {
             />
           </Routes>
         </div>
-        <div className="basis-1/6 h-full">
+        <div className="basis-1/8 h-full">
           <AdPlaceholder position="side" />
         </div>
       </div>

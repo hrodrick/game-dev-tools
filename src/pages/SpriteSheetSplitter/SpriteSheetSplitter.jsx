@@ -4,10 +4,9 @@ import DownloadAllButton from "./components/DownloadAllButton";
 import useSpriteSheetSplitter from "./hooks/useSpriteSheetSplitter";
 import { splitSpritesheet } from "./utils/splitSpritesheet";
 import MultiDropZone from "../../components/MultiDropZone";
+import Footer from "../../components/Footer";
 
 export default function SpriteSheetSplitter() {
-  const [isDragging, setIsDragging] = React.useState(false);
-  const uploadInputRef = React.useRef();
   const {
     image,
     setImage,
@@ -78,86 +77,34 @@ export default function SpriteSheetSplitter() {
   };
 
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          gap: 32,
-          marginBottom: 12,
-        }}
-      >
+    <div className="w-full">
+      <div className="flex flex-col md:flex-row place-content-center gap-4 w-full" >
         {/* Left: Preview */}
-        <div style={{ flex: 1 }}>
+        <div className="flex-1 w-full">
           <MultiDropZone
             onFilesSelected={files => handleFileChange({ target: { files } })}
             multiple={false}
             label="Drag & drop image here"
           />
           {error && (
-            <div style={{ color: "red", marginBottom: 12 }}>{error}</div>
+            <div className="text-error text-sm">{error}</div>
           )}
           {image && (
-            <>
+            <div className="flex flex-col gap-4 pt-4">
               {imgInfo && (
-                <div
-                  style={{
-                    margin: "10px 0 2px 0",
-                    fontSize: 15,
-                    color: "#333",
-                    fontWeight: 500,
-                  }}
-                >
-                  <span>File: {imgInfo.name} </span>
-                  {typeof imgInfo.width === "number" &&
-                    typeof imgInfo.height === "number" && (
-                      <span>
-                        {" "}
-                        | Size: {imgInfo.width} × {imgInfo.height} px
-                      </span>
-                    )}
-                  <span>
-                    {" "}
-                    | Disk:{" "}
-                    {imgInfo.size >= 1048576
-                      ? (imgInfo.size / 1048576).toFixed(2) + " MB"
-                      : (imgInfo.size / 1024).toFixed(2) + " KB"}
-                  </span>
+                <div className="text-sm">
+                  <span>File: {imgInfo.name}</span>
+                  {typeof imgInfo.width === "number" && typeof imgInfo.height === "number" && <span>{" "} | Size: {imgInfo.width} × {imgInfo.height} px</span>}
+                  <span>{" "} | Disk:{" "} {imgInfo.size >= 1048576 ? (imgInfo.size / 1048576).toFixed(2) + " MB" : (imgInfo.size / 1024).toFixed(2) + " KB"}</span>
                 </div>
               )}
-              <div
-                style={{
-                  margin: "8px 0 18px 0",
-                  position: "relative",
-                  display: "inline-block",
-                  maxWidth: "100%",
-                  minWidth: 320,
-                  minHeight: 120,
-                }}
-              >
-                <img
-                  ref={imgRef}
-                  src={image}
-                  alt="sprite sheet"
-                  style={{
-                    maxWidth: "100%",
-                    maxHeight: 320,
-                    border: "1px solid #bbb",
-                    borderRadius: 8,
-                    display: "block",
-                  }}
+              <div className="max-w-full min-h-24 relative inline-block">
+                <img ref={imgRef} src={image} alt="sprite sheet" 
+                  className="rounded-2xl w-full h-full block"
                   onLoad={(e) => {
                     setError("");
                     if (imgInfo) {
-                      setImgInfo((info) =>
-                        info
-                          ? {
-                              ...info,
-                              width: e.target.naturalWidth,
-                              height: e.target.naturalHeight,
-                            }
-                          : info,
-                      );
+                      setImgInfo((info) => info ? { ...info, width: e.target.naturalWidth, height: e.target.naturalHeight,} : info,);
                     }
                   }}
                   onError={() => setError("Failed to load image.")}
@@ -165,18 +112,16 @@ export default function SpriteSheetSplitter() {
                 />
                 <GridOverlay
                   cellWidth={
-                    splitMode === "size"
-                      ? parseInt(cellWidth, 10) || 1
-                      : columns
-                        ? Math.floor(imgInfo?.width / columns)
-                        : 1
+                    splitMode === "size" 
+                      ? parseInt(cellWidth, 10) || 1 
+                      : columns ? Math.floor(imgInfo?.width / columns) 
+                      : 1
                   }
                   cellHeight={
                     splitMode === "size"
                       ? parseInt(cellHeight, 10) || 1
-                      : rows
-                        ? Math.floor(imgInfo?.height / rows)
-                        : 1
+                      : rows ? Math.floor(imgInfo?.height / rows)
+                      : 1
                   }
                   imgRef={imgRef}
                   splitMode={splitMode}
@@ -188,208 +133,82 @@ export default function SpriteSheetSplitter() {
                   paddingBottom={paddingBottom}
                 />
               </div>
-            </>
+            </div>
           )}
         </div>
         {/* Right: Controls */}
-        <div
-          style={{
-            minWidth: 250,
-            maxWidth: 340,
-            display: "flex",
-            flexDirection: "column",
-            gap: 18,
-          }}
-        >
+        <fieldset className="box-content fieldset bg-base-200 border-base-300 rounded-box border gap-4 p-4 md:min-w-64">
+          <legend className="fieldset-legend">Settings</legend>
+          <label className="md:hidden text-sm text-neutral-content italic w-full text-center">Preview the changes above</label>
           {/* Split Mode */}
-          <div style={{ marginBottom: 8 }}>
-            <div style={{ fontWeight: 600, marginBottom: 6 }}>Splits</div>
-            <label style={{ fontWeight: 500, marginRight: 16 }}>
-              <input
-                type="radio"
-                name="splitMode"
-                value="size"
-                checked={splitMode === "size"}
-                onChange={() => setSplitMode("size")}
-                style={{ marginRight: 4 }}
-              />
-              By Width/Height
+          <div className="flex flex-col gap-2">
+            <label className="label text-base text-neutral-content font-bold">Split type</label>
+            <label className="text-sm">
+              <input className="radio radio-info mr-2" type="radio" name="splitMode" value="size" 
+              checked={splitMode === "size"} onChange={() => setSplitMode("size")}
+            />
+            By Cell size
             </label>
-            <label style={{ fontWeight: 500 }}>
-              <input
-                type="radio"
-                name="splitMode"
-                value="grid"
-                checked={splitMode === "grid"}
-                onChange={() => setSplitMode("grid")}
-                style={{ marginRight: 4 }}
+            <label className="text-sm">
+              <input className="radio radio-info mr-2" type="radio" name="splitMode" value="grid" 
+                checked={splitMode === "grid"} onChange={() => setSplitMode("grid")}
               />
               By Columns/Rows
             </label>
           </div>
-          {/* Width/Height or Columns/Rows */}
-          <div style={{ marginBottom: 8 }}>
-            {splitMode === "size" ? (
-              <>
-                <div style={{ marginBottom: 8 }}>
-                  <label
-                    style={{ marginRight: 8, fontWeight: 500 }}
-                    htmlFor="cellWidth"
-                  >
-                    Width
-                  </label>
-                  <input
-                    id="cellWidth"
-                    type="number"
-                    min={1}
-                    placeholder="Cell Width"
-                    value={cellWidth}
-                    onChange={(e) => setCellWidth(e.target.value)}
-                    style={{ width: 80 }}
-                  />
-                </div>
-                <div>
-                  <label
-                    style={{ marginRight: 8, fontWeight: 500 }}
-                    htmlFor="cellHeight"
-                  >
-                    Height
-                  </label>
-                  <input
-                    id="cellHeight"
-                    type="number"
-                    min={1}
-                    placeholder="Cell Height"
-                    value={cellHeight}
-                    onChange={(e) => setCellHeight(e.target.value)}
-                    style={{ width: 80 }}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div style={{ marginBottom: 8 }}>
-                  <label
-                    style={{ marginRight: 8, fontWeight: 500 }}
-                    htmlFor="columns"
-                  >
-                    Columns
-                  </label>
-                  <input
-                    id="columns"
-                    type="number"
-                    min={1}
-                    placeholder="Columns"
-                    value={columns}
-                    onChange={(e) => setColumns(e.target.value)}
-                    style={{ width: 80 }}
-                  />
-                </div>
-                <div>
-                  <label
-                    style={{ marginRight: 8, fontWeight: 500 }}
-                    htmlFor="rows"
-                  >
-                    Rows
-                  </label>
-                  <input
-                    id="rows"
-                    type="number"
-                    min={1}
-                    placeholder="Rows"
-                    value={rows}
-                    onChange={(e) => setRows(e.target.value)}
-                    style={{ width: 80 }}
-                  />
-                </div>
-              </>
-            )}
-          </div>
+          {/* Cell size or Columns/Rows */}
+          {splitMode === "size" ? (
+            <div className="flex flex-col gap-1">
+              <label htmlFor="cellWidth">Width</label>
+              <input className="input" id="cellWidth" type="number" min={1} placeholder="Cell Width" value={cellWidth}
+                onChange={(e) => setCellWidth(e.target.value)}
+              />
+              <label className="pt-3" htmlFor="cellHeight">Height</label>
+              <input className="input" id="cellHeight" type="number" min={1} placeholder="Cell Height" value={cellHeight}
+                onChange={(e) => setCellHeight(e.target.value)}
+              />
+            </div>
+          ) : (
+            <div className="flex flex-col gap-1">
+              <label htmlFor="columns">Columns</label>
+              <input className="input" id="columns" type="number" min={1} placeholder="Columns" value={columns}
+                onChange={(e) => setColumns(e.target.value)}
+              />
+              <label className="pt-3" htmlFor="rows">Rows</label>
+              <input className="input" id="rows" type="number" min={1} placeholder="Rows" value={rows}
+                onChange={(e) => setRows(e.target.value)}
+              />
+            </div>
+          )}
           {/* Paddings */}
-          <div style={{ marginBottom: 8 }}>
-            <div style={{ fontWeight: 600, marginBottom: 6 }}>Paddings</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              <div>
-                <label
-                  style={{ marginRight: 8, fontWeight: 500 }}
-                  htmlFor="paddingLeft"
-                >
-                  Left
-                </label>
-                <input
-                  id="paddingLeft"
-                  type="number"
-                  min={0}
-                  placeholder="Left"
-                  value={paddingLeft}
-                  onChange={(e) => setPaddingLeft(e.target.value)}
-                  style={{ width: 55 }}
-                />
-              </div>
-              <div>
-                <label
-                  style={{ marginRight: 8, fontWeight: 500 }}
-                  htmlFor="paddingRight"
-                >
-                  Right
-                </label>
-                <input
-                  id="paddingRight"
-                  type="number"
-                  min={0}
-                  placeholder="Right"
-                  value={paddingRight}
-                  onChange={(e) => setPaddingRight(e.target.value)}
-                  style={{ width: 55 }}
-                />
-              </div>
-              <div>
-                <label
-                  style={{ marginRight: 8, fontWeight: 500 }}
-                  htmlFor="paddingTop"
-                >
-                  Top
-                </label>
-                <input
-                  id="paddingTop"
-                  type="number"
-                  min={0}
-                  placeholder="Top"
-                  value={paddingTop}
-                  onChange={(e) => setPaddingTop(e.target.value)}
-                  style={{ width: 55 }}
-                />
-              </div>
-              <div>
-                <label
-                  style={{ marginRight: 8, fontWeight: 500 }}
-                  htmlFor="paddingBottom"
-                >
-                  Bottom
-                </label>
-                <input
-                  id="paddingBottom"
-                  type="number"
-                  min={0}
-                  placeholder="Bottom"
-                  value={paddingBottom}
-                  onChange={(e) => setPaddingBottom(e.target.value)}
-                  style={{ width: 55 }}
-                />
-              </div>
+          <label className="label text-base text-neutral-content font-bold">Paddings</label>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div>
+              <label htmlFor="paddingLeft">Left</label>
+              <input className="input" id="paddingLeft" type="number" min={0} placeholder="Left" value={paddingLeft}
+                onChange={(e) => setPaddingLeft(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="paddingRight">Right</label>
+              <input className="input" id="paddingRight" type="number" min={0} placeholder="Right" value={paddingRight}
+                onChange={(e) => setPaddingRight(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="paddingTop">Top</label>
+              <input className="input" id="paddingTop" type="number" min={0} placeholder="Top" value={paddingTop}
+                onChange={(e) => setPaddingTop(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="paddingBottom">Bottom</label>
+              <input className="input" id="paddingBottom" type="number" min={0} placeholder="Bottom" value={paddingBottom}
+                onChange={(e) => setPaddingBottom(e.target.value)}
+              />
             </div>
           </div>
-          <button
-            onClick={handleSplit}
-            style={{
-              padding: "8px 20px",
-              background: "#4078c0",
-              color: "white",
-              border: "none",
-              borderRadius: 6,
-              cursor: "pointer",
-              height: 38,
-            }}
+          <button className="btn btn-neutral w-full" onClick={handleSplit}
             disabled={
               (splitMode === "size" &&
                 (!cellWidth ||
@@ -409,51 +228,25 @@ export default function SpriteSheetSplitter() {
           >
             Split
           </button>
-        </div>
+          {frames.length > 0 && (<p className="text-sm w-full text-center">Process complete. Results below</p>)}
+        </fieldset>
       </div>
       {frames.length > 0 && (
-        <div style={{ marginTop: 18 }}>
-          <h4>Frames:</h4>
+        <div className="flex flex-col gap-4 pt-4 w-full">
+          <h2 className="text-xl font-bold">Split Frames</h2>
           <DownloadAllButton frames={frames} />
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 14,
-              margin: "12px 0",
-            }}
-          >
+          <div className="flex flex-wrap gap-4 place-content-center-safe">
             {frames.map((frame, i) => (
-              <div key={i} style={{ textAlign: "center" }}>
-                <img
-                  src={frame}
-                  alt={`frame ${i}`}
-                  style={{
-                    width: 64,
-                    height: 64,
-                    objectFit: "contain",
-                    border: "1px solid #ccc",
-                    borderRadius: 4,
-                  }}
-                />
-                <br />
-                <a
-                  href={frame}
-                  download={`frame_${i + 1}.png`}
-                  style={{
-                    fontSize: 13,
-                    color: "#4078c0",
-                    textDecoration: "underline",
-                  }}
-                >
-                  Download
-                </a>
+              <div key={i} className="flex flex-col gap-2 items-center">
+                <img src={frame} alt={`frame ${i + 1}`} className="w-16 h-16 object-contain border border-neutral-content rounded"/>
+                <a href={frame} download={`${imgInfo.name}-${i + 1}.png`} className="text-xs text-neutral-content underline">Download</a>
               </div>
             ))}
           </div>
-          <DownloadAllButton frames={frames} />
+          <DownloadAllButton frames={frames} fileName={imgInfo.name} />
         </div>
       )}
+      <Footer />
     </div>
   );
 }

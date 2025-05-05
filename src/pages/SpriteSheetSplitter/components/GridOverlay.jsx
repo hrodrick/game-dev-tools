@@ -87,16 +87,15 @@ export default function GridOverlay({
   const padBox = (
     <div
       key="padding-preview"
+      className="border-2 rounded-xl border-dashed border-neutral-content z-3"
       style={{
         position: "absolute",
         left: padL * scaleX,
         top: padT * scaleY,
         width: (natW - padL - padR) * scaleX,
         height: (natH - padT - padB) * scaleY,
-        border: "2px dashed magenta",
         boxSizing: "border-box",
         pointerEvents: "none",
-        zIndex: 3,
       }}
     />
   );
@@ -111,13 +110,13 @@ export default function GridOverlay({
     gridLines.push(
       <div
         key={`v${i}`}
+        className="bg-neutral-content"
         style={{
           position: "absolute",
           left: gridOriginX + i * (gridAreaW / gridCols),
           top: gridOriginY,
           height: gridAreaH,
           width: 1,
-          background: "rgba(64,120,192,0.6)",
           zIndex: 2,
         }}
       />,
@@ -128,13 +127,13 @@ export default function GridOverlay({
     gridLines.push(
       <div
         key={`h${i}`}
+        className="bg-neutral-content"
         style={{
           position: "absolute",
           top: gridOriginY + i * (gridAreaH / gridRows),
           left: gridOriginX,
           width: gridAreaW,
           height: 1,
-          background: "rgba(64,120,192,0.6)",
           zIndex: 2,
         }}
       />,
@@ -142,12 +141,11 @@ export default function GridOverlay({
   }
   return (
     <div
+      className="w-full h-full"
       style={{
         position: "absolute",
         left: 0,
         top: 0,
-        width: displayW,
-        height: displayH,
         pointerEvents: "none",
         zIndex: 2,
       }}
