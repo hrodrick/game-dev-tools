@@ -20,7 +20,7 @@ export default function ToolPageLayout({
   className = ""
 }) {
   return (
-    <div className={`tool-page-layout place-content-center w-full min-h-screen flex flex-col gap-4 ${className}`}>
+    <div className={`tool-page-layout w-full min-h-screen flex flex-col gap-4 ${className}`}>
       {/* Title and Description */}
       <header className="flex flex-col gap-4">
         {title && <h1 className="text-xl font-bold">{title}</h1>}

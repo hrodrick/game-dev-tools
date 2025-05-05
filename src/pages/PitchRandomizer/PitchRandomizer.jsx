@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import MultiDropZone from "../../components/MultiDropZone";
-import Footer from "../../components/Footer";
+import ToolPageLayout from "../../components/ToolPageLayout";
 
 const DEFAULT_PITCH = 1.0;
 const MIN_PITCH = -3;
@@ -87,29 +87,31 @@ export default function PitchRandomizer() {
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <h1 className="text-xl font-bold">Pitch Randomizer</h1>
-      <h2>Upload a sound file, set min/max pitch, and play it with a randomized pitch between those values.</h2>
-      <MultiDropZone
-        onFilesSelected={files => handleFileChange({ target: { files } })}
-        multiple={false}
-        accept="audio/*"
-        label="Drag & drop audio file here"
-      />
-      {audioFile && (<div className="text-sm"> <b>File:</b> {audioFile.name}</div>)}
-      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border gap-4 p-4 md:min-w-64">
-        <legend className="fieldset-legend">Settings</legend>
+    <ToolPageLayout
+      title="Pitch Randomizer"
+      description="Tired of waiting for the media player to load your audio file? Use this tool to quickly play a sound file! And even more, find the perfect pitch range for it right here!"
+      leftContent={
+        <div className="flex flex-col gap-4">
+          <MultiDropZone
+            onFilesSelected={files => handleFileChange({ target: { files } })}
+            multiple={false}
+            accept="audio/*"
+            label="Drag & drop audio file here"
+          />
+          {audioFile && (<div className="text-md text-neutral-content"> <b>File:</b> {audioFile.name}</div>)}
+        </div>
+      }
+      fieldsetContent={
         <div className="flex flex-col gap-2">
           <label>Min Pitch</label>
           <input className="input" type="number" step="0.01" value={minPitch} onChange={handleChange("minPitch")}/>
           <label>Max Pitch</label>
           <input className="input" type="number" step="0.01" value={maxPitch} onChange={handleChange("maxPitch")}/>
+          <button onClick={handlePlay} disabled={!audioFile} className="btn btn-neutral">Play sound</button>
+          {error && <div className="text-error text-sm">{error}</div>}
+          {lastPitch !== null && (<div className="text-sm">Pitch used: {lastPitch.toFixed(3)}</div>)}
         </div>
-      </fieldset>
-      <button onClick={handlePlay} disabled={!audioFile} className="btn btn-neutral">Play</button>
-      {error && <div className="text-error text-sm">{error}</div>}
-      {lastPitch !== null && (<div className="text-sm">Pitch used: {lastPitch.toFixed(3)}</div>)}
-      <Footer />
-    </div>
+      }
+    />
   );
 }

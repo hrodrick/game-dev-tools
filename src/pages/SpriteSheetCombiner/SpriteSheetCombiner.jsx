@@ -1,9 +1,8 @@
 import React, { useRef, useState } from "react";
-
 import { combineImagesToSpriteSheet } from "./utils/combineImagesToSpriteSheet";
 import MultiDropZone from "../../components/MultiDropZone";
 import DownloadButton from "../../components/DownloadButton";
-import Footer from "../../components/Footer";
+import ToolPageLayout from "../../components/ToolPageLayout";
 
 export default function SpriteSheetCombiner() {
   const [imagesPerRow, setImagesPerRow] = useState(4); // Default to 4 per row
@@ -35,67 +34,70 @@ export default function SpriteSheetCombiner() {
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <h1 className="text-xl font-bold">Sprite Sheet Combiner</h1>
-      <h2>Combine multiple images into a single sprite sheet</h2>
-      <p>This tool allows you to easily create a single sprite sheet from multiple images. It is ideal to create icon sets from individual icons with same size, or to combine animation sprites.</p>
-      <div className="flex flex-col md:flex-row gap-4">
-        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border gap-4 p-4 md:min-w-64">
-          <legend className="fieldset-legend">Settings</legend>
+    <ToolPageLayout
+      title="Sprite Sheet Combiner"
+      description="Combine multiple images into a single sprite sheet. Ideal for creating icon sets or combining animation sprites."
+      leftContent={
+        <div className="flex flex-col gap-4">
           <MultiDropZone
-              onFilesSelected={files => handleFileChange({ target: { files } })}
-              multiple={true}
-              label="Drag & drop images here"
-              className=""
-            />
+            onFilesSelected={files => handleFileChange({ target: { files } })}
+            multiple={true}
+            label="Drag & drop images here"
+            className=""
+          />
+          <canvas ref={canvasRef} className="hidden" />
+          {images.length > 0 && (
+            <div className="flex flex-col gap-4">
+              <h4>Selected images</h4>
+              <div className="flex flex-wrap gap-2">
+                {images.map((img, i) => (
+                  <img key={i} src={img.url} alt={`img${i}`} className="w-16 h-16 object-contain border border-neutral-100 rounded" />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      }
+      fieldsetContent={
+        <>
           <label className="label text-neutral-content">Images per row</label>
           <input id="images-per-row"
-            type="number" 
-            className="input w-full" 
-            placeholder="Images per row" 
-            value={imagesPerRow} 
-            onChange={e => setImagesPerRow(Number(e.target.value))} 
+            type="number"
+            className="input w-full"
+            placeholder="Images per row"
+            value={imagesPerRow}
+            onChange={e => setImagesPerRow(Number(e.target.value))}
             min={1}
             max={images.length || 100}
           />
           <button className="btn btn-neutral w-full" onClick={handleCombine}>Combine</button>
           {error && <div className="text-error text-sm">{error}</div>}
-        </fieldset>
-        <canvas ref={canvasRef} className="hidden"/>
-        {images.length > 0 && (
-          <div className="flex flex-col gap-4">
-            <h4>Selected images</h4>
-            <div className="flex flex-wrap gap-2">
-              {images.map((img, i) => (
-                <img key={i} src={img.url} alt={`img${i}`} className="w-16 h-16 object-contain border border-neutral-100 rounded" />
-              ))}
-            </div>
+        </>
+      }
+      resultsContent={
+        spriteSheetUrl && (
+          <div className="flex flex-col gap-4 bg-base-200 border-base-300 rounded-box w-full border p-4">
+            <h4 className="text-lg font-bold">Combination Result</h4>
+            <DownloadButton
+              href={spriteSheetUrl}
+              fileName="sprite_sheet.png"
+              className="btn btn-neutral w-full"
+              children = "Download Sprite Sheet"
+            />
+            <img
+              src={spriteSheetUrl}
+              alt="sprite sheet result"
+              className="w-full h-auto border-1 border-neutral-100 rounded"
+            />
+            <DownloadButton
+              href={spriteSheetUrl}
+              fileName="sprite_sheet.png"
+              className="btn btn-neutral w-full"
+              children = "Download Sprite Sheet"
+            />
           </div>
-        )}
-      </div>
-      {spriteSheetUrl && (
-        <div className="flex flex-col gap-4 bg-base-200 border-base-300 rounded-box w-full border p-4">
-          <h4 className="text-lg font-bold">Combination Result</h4>
-          <DownloadButton
-            href={spriteSheetUrl}
-            fileName="sprite_sheet.png"
-            className="btn btn-neutral md:w-64"
-            children = "Download Sprite Sheet"
-          />
-          <img
-            src={spriteSheetUrl}
-            alt="sprite sheet result"
-            className="w-full h-auto border-1 border-neutral-100 rounded"
-          />
-          <DownloadButton
-            href={spriteSheetUrl}
-            fileName="sprite_sheet.png"
-            className="btn btn-neutral md:w-64"
-            children = "Download Sprite Sheet"
-          />
-        </div>
-      )}
-      <Footer />
-    </div>
+        )
+      }
+    />
   );
 }
