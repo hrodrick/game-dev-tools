@@ -5,6 +5,7 @@ import useSpriteSheetSplitter from "./hooks/useSpriteSheetSplitter";
 import { splitSpritesheet } from "./utils/splitSpritesheet";
 import MultiDropZone from "../../components/MultiDropZone";
 import Footer from "../../components/Footer";
+import ToolPageLayout from "../../components/ToolPageLayout";
 
 export default function SpriteSheetSplitter() {
   const {
@@ -77,12 +78,11 @@ export default function SpriteSheetSplitter() {
   };
 
   return (
-    <div className="w-full flex flex-col gap-4">
-      <h1 className="text-xl font-bold">Sprite Sheet Splitter</h1>
-      <h2> Upload a sprite sheet image, set the split mode (by cell size or columns/rows), and split the image into individual frames of equal size. You can also add global paddings to the sprite sheet.</h2>
-      <div className="flex flex-col md:flex-row place-content-center gap-4 w-full" >
-        {/* Left: Preview */}
-        <div className="flex-1 w-full">
+    <ToolPageLayout
+      title="Sprite Sheet Splitter"
+      description="Upload a sprite sheet image, set the split mode (by cell size or columns/rows), and split the image into individual frames of equal size. You can also add global paddings to the sprite sheet."
+      leftContent={
+        <>
           <MultiDropZone
             onFilesSelected={files => handleFileChange({ target: { files } })}
             multiple={false}
@@ -137,10 +137,10 @@ export default function SpriteSheetSplitter() {
               </div>
             </div>
           )}
-        </div>
-        {/* Right: Controls */}
-        <fieldset className="box-content fieldset bg-base-200 border-base-300 rounded-box border gap-4 p-4 md:min-w-64">
-          <legend className="fieldset-legend">Settings</legend>
+        </>
+      }
+      fieldsetContent={
+        <>
           <label className="md:hidden text-sm text-neutral-content italic w-full text-center">Preview the changes above</label>
           {/* Split Mode */}
           <div className="flex flex-col gap-2">
@@ -231,24 +231,25 @@ export default function SpriteSheetSplitter() {
             Split
           </button>
           {frames.length > 0 && (<p className="text-sm w-full text-center">Process complete. Results below</p>)}
-        </fieldset>
-      </div>
-      {frames.length > 0 && (
-        <div className="flex flex-col gap-4 pt-4 w-full">
-          <h2 className="text-xl font-bold">Split Frames</h2>
-          <DownloadAllButton frames={frames} />
-          <div className="flex flex-wrap gap-4 place-content-center-safe">
-            {frames.map((frame, i) => (
-              <div key={i} className="flex flex-col gap-2 items-center">
-                <img src={frame} alt={`frame ${i + 1}`} className="w-16 h-16 object-contain border border-neutral-content rounded"/>
-                <a href={frame} download={`${imgInfo.name}-${i + 1}.png`} className="text-xs text-neutral-content underline">Download</a>
-              </div>
-            ))}
+        </>
+      }
+      resultsContent={
+        frames.length > 0 && (
+          <div className="flex flex-col gap-4 pt-4">
+            <h2 className="text-xl font-bold">Split Frames</h2>
+            <DownloadAllButton frames={frames} />
+            <div className="flex flex-wrap gap-4 place-content-center-safe">
+              {frames.map((frame, i) => (
+                <div key={i} className="flex flex-col gap-2 items-center">
+                  <img src={frame} alt={`frame ${i + 1}`} className="w-16 h-16 object-contain border border-neutral-content rounded"/>
+                  <a href={frame} download={`${imgInfo.name}-${i + 1}.png`} className="text-xs text-neutral-content underline">Download</a>
+                </div>
+              ))}
+            </div>
+            <DownloadAllButton frames={frames} fileName={imgInfo?.name} />
           </div>
-          <DownloadAllButton frames={frames} fileName={imgInfo.name} />
-        </div>
-      )}
-      <Footer />
-    </div>
+        )
+      }
+    />
   );
 }

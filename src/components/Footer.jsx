@@ -20,7 +20,7 @@ export default function Footer() {
   const copiedTimeoutRef = useRef(null);
     return (
         <footer className="flex flex-col gap-4">
-            <div className="divider" />
+            <div className="divider mb-0" />
             <p className="text-sm p-0">Missing a tool? Have an idea? Join our Discord and Let me know!</p>
             <a className="btn btn-ghost w-24 self-center md:self-start" key={DiscordSocial.name} href={DiscordSocial.url} target="_blank" rel="noopener noreferrer">
                 {DiscordSocial.icon()}
