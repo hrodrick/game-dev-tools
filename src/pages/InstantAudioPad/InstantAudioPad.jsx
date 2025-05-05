@@ -115,23 +115,23 @@ export default function InstantAudioPad() {
                 onClick={() => handleButtonClick(fileObj, i)}
                 disabled={sequencePlaying}
               >
-                {fileObj.name}
+                <p className="mask overflow-hidden size-full text-xs text-center content-center">{fileObj.name}</p>
               </button>
             ))}
           </div>
         </div>
       }
       fieldsetContent={
-        <>
+        <div className="flex flex-col gap-2">
           <label className="label">Min Pitch</label>
           <input className="input" type="number" step="0.01" min={MIN_PITCH} max={MAX_PITCH} value={minPitch} 
             onChange={e => setMinPitch(Number(e.target.value))}
           />
-          <label className="label">Max Pitch</label>
+          <label className="label mt-2">Max Pitch</label>
           <input className="input" type="number" step="0.01" min={MIN_PITCH} max={MAX_PITCH} value={maxPitch} 
             onChange={e => setMaxPitch(Number(e.target.value))}
           />
-          <label className="label">Delay between sounds (seconds)</label>
+          <label className="label mt-2">Delay between sounds (seconds)</label>
           <input className="input" type="number" step="0.01" min={0} value={delay} 
             onChange={e => setDelay(Number(e.target.value))}
           />
@@ -143,19 +143,21 @@ export default function InstantAudioPad() {
             Play all sounds in sequence
           </button>
           <button
-            className="btn btn-error mt-2"
+            className="btn btn-error mt-2 "
             onClick={stopAll}
             disabled={!sequencePlaying && playingIndex === null}
           >
             Stop sequence
           </button>
-          <div className="mt-4">
+          <div className="mt-2 flex flex-col gap-2">
             <div className="label">Last 5 played sounds:</div>
-            {lastPlayed.map((name, idx) => (
-              <div key={idx} className="text-sm text-neutral-content">{name}</div>
-            ))}
+            <div className="w-64 overflow-x-scroll scroll-smooth flex flex-col gap-1 pb-2">
+              {lastPlayed.map((name, idx) => (
+                <label key={idx} className="text-xs w-full text-neutral-content whitespace-nowrap mask">{name}</label>
+              ))}
+            </div>
           </div>
-        </>
+        </div>
       }
     />
   );
