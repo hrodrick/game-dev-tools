@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import MultiDropZone from "../../components/MultiDropZone";
+import Footer from "../../components/Footer";
 
 const DEFAULT_PITCH = 1.0;
 const MIN_PITCH = -3;
@@ -10,6 +11,7 @@ export default function PitchRandomizer() {
   const [minPitch, setMinPitch] = useState(DEFAULT_PITCH);
   const [maxPitch, setMaxPitch] = useState(DEFAULT_PITCH);
   const [error, setError] = useState("");
+  const [audioUrl, setAudioUrl] = useState(null);
   const [lastPitch, setLastPitch] = useState(null);
   const audioBufferRef = useRef(null);
   const audioContextRef = useRef(null);
@@ -34,6 +36,26 @@ export default function PitchRandomizer() {
       setError("Could not decode audio file. Please try a different format.");
       audioBufferRef.current = null;
     }
+  };
+
+  const handleChange = (pitchType) => (e) => {
+    const val = e.target.value;
+    if (val === "") {
+      if (pitchType === "minPitch") {
+        setMinPitch("");
+      } else {
+        setMaxPitch("");
+      }
+    } else {
+      const num = parseFloat(val);
+      if (!isNaN(num)) {
+        if (pitchType === "minPitch") {
+          setMinPitch(Math.max(MIN_PITCH, Math.min(MAX_PITCH, num)));
+        } else {
+          setMaxPitch(Math.max(MIN_PITCH, Math.min(MAX_PITCH, num)));
+        }
+      }
+    } 
   };
 
   const handlePlay = () => {
@@ -65,103 +87,29 @@ export default function PitchRandomizer() {
   };
 
   return (
-    <div
-      style={{
-        maxWidth: 480,
-        margin: "40px auto",
-        padding: 24,
-        background: "#fff",
-        borderRadius: 12,
-        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-      }}
-    >
-      <h2>Pitch Randomizer</h2>
-      <p>
-        Upload a sound file, set min/max pitch, and play with a randomized pitch
-        between those values.
-      </p>
-      <div style={{ marginBottom: 16 }}>
-        <label>
-          <b>Upload Sound File:</b>
-        </label>
-        <div>
-          <MultiDropZone
-            onFilesSelected={files => handleFileChange({ target: { files } })}
-            multiple={false}
-            accept="audio/*"
-            label="Drag & drop audio file here"
-            style={{ marginTop: 8, marginBottom: 0 }}
-          />
+    <div className="flex flex-col gap-4">
+      <h1 className="text-xl font-bold">Pitch Randomizer</h1>
+      <h2>Upload a sound file, set min/max pitch, and play it with a randomized pitch between those values.</h2>
+      <MultiDropZone
+        onFilesSelected={files => handleFileChange({ target: { files } })}
+        multiple={false}
+        accept="audio/*"
+        label="Drag & drop audio file here"
+      />
+      {audioFile && (<div className="text-sm"> <b>File:</b> {audioFile.name}</div>)}
+      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border gap-4 p-4 md:min-w-64">
+        <legend className="fieldset-legend">Settings</legend>
+        <div className="flex flex-col gap-2">
+          <label>Min Pitch</label>
+          <input className="input" type="number" step="0.01" value={minPitch} onChange={handleChange("minPitch")}/>
+          <label>Max Pitch</label>
+          <input className="input" type="number" step="0.01" value={maxPitch} onChange={handleChange("maxPitch")}/>
         </div>
-      </div>
-      <div style={{ display: "flex", gap: 16, marginBottom: 16 }}>
-        <label>
-          Min Pitch
-          <input
-            type="number"
-            step="0.01"
-            value={minPitch}
-            onChange={(e) => {
-              const val = e.target.value;
-              if (val === "") {
-                setMinPitch("");
-              } else {
-                const num = parseFloat(val);
-                if (!isNaN(num)) {
-                  setMinPitch(Math.max(MIN_PITCH, Math.min(MAX_PITCH, num)));
-                }
-              }
-            }}
-            style={{ width: 80, marginLeft: 8 }}
-          />
-        </label>
-        <label>
-          Max Pitch
-          <input
-            type="number"
-            step="0.01"
-            value={maxPitch}
-            onChange={(e) => {
-              const val = e.target.value;
-              if (val === "") {
-                setMaxPitch("");
-              } else {
-                const num = parseFloat(val);
-                if (!isNaN(num)) {
-                  setMaxPitch(Math.max(MIN_PITCH, Math.min(MAX_PITCH, num)));
-                }
-              }
-            }}
-            style={{ width: 80, marginLeft: 8 }}
-          />
-        </label>
-      </div>
-      <button
-        onClick={handlePlay}
-        disabled={!audioFile}
-        style={{
-          padding: "8px 24px",
-          fontWeight: 600,
-          borderRadius: 6,
-          background: "#0070f3",
-          color: "#fff",
-          border: "none",
-          cursor: audioFile ? "pointer" : "not-allowed",
-        }}
-      >
-        Play
-      </button>
-      {error && <div style={{ color: "red", marginTop: 16 }}>{error}</div>}
-      {lastPitch !== null && (
-        <div style={{ marginTop: 16, color: "#0070f3", fontWeight: 500 }}>
-          Pitch used: {lastPitch.toFixed(3)}
-        </div>
-      )}
-      {audioFile && (
-        <div style={{ marginTop: 16, color: "#555" }}>
-          <b>File:</b> {audioFile.name}
-        </div>
-      )}
+      </fieldset>
+      <button onClick={handlePlay} disabled={!audioFile} className="btn btn-neutral">Play</button>
+      {error && <div className="text-error text-sm">{error}</div>}
+      {lastPitch !== null && (<div className="text-sm">Pitch used: {lastPitch.toFixed(3)}</div>)}
+      <Footer />
     </div>
   );
 }

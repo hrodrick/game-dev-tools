@@ -77,7 +77,9 @@ export default function SpriteSheetSplitter() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col gap-4">
+      <h1 className="text-xl font-bold">Sprite Sheet Splitter</h1>
+      <h2> Upload a sprite sheet image, set the split mode (by cell size or columns/rows), and split the image into individual frames of equal size. You can also add global paddings to the sprite sheet.</h2>
       <div className="flex flex-col md:flex-row place-content-center gap-4 w-full" >
         {/* Left: Preview */}
         <div className="flex-1 w-full">

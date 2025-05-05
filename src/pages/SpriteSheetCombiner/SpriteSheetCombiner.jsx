@@ -36,9 +36,9 @@ export default function SpriteSheetCombiner() {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-4xl">Sprite Sheet Combiner</h1>
-      <h2 className="text-lg">Combine multiple images into a single sprite sheet</h2>
-      <p className="text-lg">This tool allows you to easily create a single sprite sheet from multiple images. It is ideal to create icon sets from individual icons with same size, or to combine animation sprites.</p>
+      <h1 className="text-xl font-bold">Sprite Sheet Combiner</h1>
+      <h2>Combine multiple images into a single sprite sheet</h2>
+      <p>This tool allows you to easily create a single sprite sheet from multiple images. It is ideal to create icon sets from individual icons with same size, or to combine animation sprites.</p>
       <div className="flex flex-col md:flex-row gap-4">
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border gap-4 p-4 md:min-w-64">
           <legend className="fieldset-legend">Settings</legend>
