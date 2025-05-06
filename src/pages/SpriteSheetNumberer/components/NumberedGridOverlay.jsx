@@ -5,9 +5,12 @@ const NumberedGridOverlay = ({
   columns,
   rows,
   fontSize = 18,
-  style = {},
   renderedWidth,
   renderedHeight,
+  splitMode,
+  cellWidth,
+  cellHeight,
+  className,
 }) => {
   const canvasRef = useRef(null);
   const [imgDims, setImgDims] = useState({ width: 0, height: 0 });
@@ -17,33 +20,39 @@ const NumberedGridOverlay = ({
     const img = new window.Image();
     img.src = imageUrl;
     img.onload = () => {
-      // Use renderedWidth/renderedHeight if provided, else fallback to natural size
+      // Always use the natural size for calculations
       setImgDims({
-        width: renderedWidth || img.width,
-        height: renderedHeight || img.height,
+        width: img.naturalWidth,
+        height: img.naturalHeight,
       });
-      drawGrid(img, renderedWidth, renderedHeight);
+      drawGrid(img);
     };
     img.onerror = (e) => {
       console.error("Image failed to load", imageUrl, e);
       setImgDims({ width: 0, height: 0 });
     };
-  }, [imageUrl, columns, rows, fontSize, renderedWidth, renderedHeight]);
+  }, [imageUrl, columns, rows, fontSize, splitMode, cellWidth, cellHeight]);
 
-  const drawGrid = (img, rWidth, rHeight) => {
+  const drawGrid = (img) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
-    const w = rWidth || img.width;
-    const h = rHeight || img.height;
+    const w = img.naturalWidth;
+    const h = img.naturalHeight;
     canvas.width = w;
     canvas.height = h;
     ctx.clearRect(0, 0, w, h);
     ctx.drawImage(img, 0, 0, w, h);
-    if (columns < 1 || rows < 1) return;
+    if (splitMode === "size" && (cellWidth < 8 || cellHeight < 8)) return;
+    else if (columns < 1 || rows < 1) return;
 
-    const cellWidth = w / columns;
-    const cellHeight = h / rows;
+    const cellWidthCalc = splitMode === "size" ? cellWidth : w / columns;
+    const cellHeightCalc = splitMode === "size" ? cellHeight : h / rows;
+    const cellRowsCalc = splitMode === "size" ? Math.ceil(h / cellHeightCalc) : rows;
+    const cellColumnsCalc = splitMode === "size" ? Math.ceil(w / cellWidthCalc) : columns;
+
+    if (cellRowsCalc < 1 || cellColumnsCalc < 1) return;
+
     ctx.strokeStyle = "rgba(0,0,0,0.5)";
     ctx.lineWidth = 1;
     ctx.font = `${fontSize}px Arial`;
@@ -51,14 +60,14 @@ const NumberedGridOverlay = ({
     ctx.textBaseline = "top";
 
     let cellId = 0;
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < columns; col++) {
-        const x = col * cellWidth;
-        const y = row * cellHeight;
-        ctx.strokeRect(x, y, cellWidth, cellHeight);
+    for (let row = 0; row < cellRowsCalc; row++) {
+      for (let col = 0; col < cellColumnsCalc; col++) {
+        const x = col * cellWidthCalc;
+        const y = row * cellHeightCalc;
+        ctx.strokeRect(x, y, cellWidthCalc, cellHeightCalc);
         // Draw cell number with outline at top right
         const padding = 4;
-        const numX = x + cellWidth - padding;
+        const numX = x + cellWidthCalc - padding;
         const numY = y + padding;
         ctx.lineWidth = 5;
         ctx.strokeStyle = "black";
@@ -70,26 +79,22 @@ const NumberedGridOverlay = ({
     }
   };
 
+  // Scale the canvas to the rendered size, but keep drawing in natural size
   return (
-    <>
-      <canvas
-        ref={canvasRef}
-        width={imgDims.width}
-        height={imgDims.height}
-        style={{
-          maxWidth: "100%",
-          height: "auto",
-          border: "1px solid #ccc",
-          background: "#f7f7f7",
-          ...style,
-        }}
-      />
-      {imgDims.width === 0 && (
-        <div style={{ color: "red", marginTop: 8 }}>
-          Image failed to load or has no dimensions.
-        </div>
-      )}
-    </>
+    <canvas
+      ref={canvasRef}
+      className={className}
+      style={{
+        width: renderedWidth || imgDims.width, // Displayed size
+        height: renderedHeight || imgDims.height,
+        display: imgDims.width && imgDims.height ? "block" : "none",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        pointerEvents: "none",
+        zIndex: 2,
+      }}
+    />
   );
 };
 

@@ -29,7 +29,7 @@ export default function Header() {
               <ul className="p-2">
                 <li><a href="/combine">Combiner</a></li>
                 <li><a href="/split">Splitter</a></li>
-                <li><a href="/cell-numberer">Cell numberer</a></li>
+                <li><a href="/cell-numberer">Cell Identifier</a></li>
               </ul>
               </details>
             </li>
@@ -73,7 +73,7 @@ export default function Header() {
                 className={dropdownStyle}>
                 <li><a href="/combine">Combiner</a></li>
                 <li><a href="/split">Splitter</a></li>
-                <li><a href="/cell-numberer">Cell numberer</a></li>
+                <li><a href="/cell-numberer">Cell Identifier</a></li>
               </ul>
           </li>
           <li className="dropdown">

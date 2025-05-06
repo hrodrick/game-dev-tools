@@ -4,7 +4,7 @@ import DownloadAllButton from "./components/DownloadAllButton";
 import useSpriteSheetSplitter from "./hooks/useSpriteSheetSplitter";
 import { splitSpritesheet } from "./utils/splitSpritesheet";
 import MultiDropZone from "../../components/MultiDropZone";
-import Footer from "../../components/Footer";
+import ImageDetails from "../../components/ImageDetails"
 import ToolPageLayout from "../../components/ToolPageLayout";
 
 export default function SpriteSheetSplitter() {
@@ -93,13 +93,7 @@ export default function SpriteSheetSplitter() {
           )}
           {image && (
             <div className="flex flex-col gap-4 pt-4">
-              {imgInfo && (
-                <div className="text-sm">
-                  <span>File: {imgInfo.name}</span>
-                  {typeof imgInfo.width === "number" && typeof imgInfo.height === "number" && <span>{" "} | Size: {imgInfo.width} × {imgInfo.height} px</span>}
-                  <span>{" "} | Disk:{" "} {imgInfo.size >= 1048576 ? (imgInfo.size / 1048576).toFixed(2) + " MB" : (imgInfo.size / 1024).toFixed(2) + " KB"}</span>
-                </div>
-              )}
+              <ImageDetails imgInfo={imgInfo} />
               <div className="max-w-full min-h-24 relative inline-block">
                 <img ref={imgRef} src={image} alt="sprite sheet" 
                   className="rounded-2xl w-full h-full block"

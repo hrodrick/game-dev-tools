@@ -17,12 +17,12 @@ export default function Home() {
         buttons={[
           { label: "Combine images", url: "/combine" },
           { label: "Split an image", url: "/split" },
-          { label: "Cell Numberer", url: "/cell-numberer" },
+          { label: "Cell Identifier", url: "/cell-numberer" },
         ]}
       />
       <ToolCard
         title="Audio"
-        description="Tired of double-clicking audio files to play them? Waiting for the media player to load? Just try these tools and you'll never go back!"
+        description="Tired of double-clicking audio files to play them? Waiting too much for the media player to load? Just try these tools and you'll never go back!"
         buttons={[
           { label: "Pitch Randomizer", url: "/pitch-randomizer" },
           { label: "Instant Audio Pad", url: "/instant-audio-pad" },
@@ -36,7 +36,6 @@ export default function Home() {
           { label: "Safe Area Calculator", url: "/safe-area-calculator" },
         ]}
       />
-
       <ToolCard
         title="Recommended Assets"
         description="Assets I've worked with and recommend. Under construction"

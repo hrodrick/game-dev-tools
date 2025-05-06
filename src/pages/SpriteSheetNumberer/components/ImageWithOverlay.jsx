@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import NumberedGridOverlay from "./NumberedGridOverlay";
 
-const ImageWithOverlay = ({ imgUrl, columns, rows, fontSize }) => {
+const ImageWithOverlay = ({ imgUrl, columns, rows, fontSize, splitMode, cellWidth, cellHeight }) => {
   const imgRef = useRef(null);
   const [imgDims, setImgDims] = useState({ width: 0, height: 0 });
 
@@ -16,30 +16,14 @@ const ImageWithOverlay = ({ imgUrl, columns, rows, fontSize }) => {
 
   return (
     <div
-      style={{
-        position: "relative",
-        width: "100%",
-        maxWidth: 1200,
-        margin: "0 auto",
-        borderRadius: 8,
-        boxShadow: "0 2px 8px #0001",
-        background: "#f7f7f7",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      className="flex justify-center items-center border-4 border-neutral-content rounded w-full relative shadow-lg"
     >
       <img
         ref={imgRef}
         src={imgUrl}
         alt="Spritesheet preview"
         onLoad={handleImgLoad}
-        style={{
-          width: "100%",
-          height: "auto",
-          display: "block",
-          borderRadius: 8,
-        }}
+        className="w-full h-auto object-contain"
       />
       {imgDims.width > 0 && imgDims.height > 0 && (
         <NumberedGridOverlay
@@ -47,16 +31,10 @@ const ImageWithOverlay = ({ imgUrl, columns, rows, fontSize }) => {
           columns={columns}
           rows={rows}
           fontSize={fontSize}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            pointerEvents: "none",
-            borderRadius: 8,
-            background: "transparent",
-          }}
+          splitMode={splitMode}
+          cellWidth={cellWidth}
+          cellHeight={cellHeight}
+          className="absolute top-0 left-0 w-full h-full pointer-events-none rounded"
           renderedWidth={
             imgRef.current ? imgRef.current.clientWidth : undefined
           }
