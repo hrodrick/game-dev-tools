@@ -34,6 +34,7 @@ export default function Home() {
         buttons={[
           { label: "Aspect Ratio Calculator", url: "/aspect-ratio-calculator" },
           { label: "Safe Area Calculator", url: "/safe-area-calculator" },
+          { label: "Common Resolutions & Aspect Ratios", url: "/resolutions-by-ratio" },
         ]}
       />
       <ToolCard

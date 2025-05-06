@@ -10,6 +10,7 @@ import PitchRandomizer from "./pages/PitchRandomizer/PitchRandomizer";
 import InstantAudioPad from "./pages/InstantAudioPad/InstantAudioPad";
 import Header from "./components/Header";
 import AdPlaceholder from "./components/AdPlaceholder";
+import ResolutionsByRatio from "./pages/ResolutionsByRatio/ResolutionsByRatio";
 
 export default function App() {
   return (
@@ -27,14 +28,9 @@ export default function App() {
             <Route path="/pitch-randomizer" element={<PitchRandomizer />} />
             <Route path="/instant-audio-pad" element={<InstantAudioPad />} />
             <Route path="/cell-numberer" element={<SpriteSheetNumberer />} />
-            <Route
-              path="/aspect-ratio-calculator"
-              element={<AspectRatioCalculator />}
-            />
-            <Route
-              path="/safe-area-calculator"
-              element={<SafeAreaCalculator />}
-            />
+            <Route path="/aspect-ratio-calculator" element={<AspectRatioCalculator />} />
+            <Route path="/resolutions-by-ratio" element={<ResolutionsByRatio />} />
+            <Route path="/safe-area-calculator" element={<SafeAreaCalculator />} />
           </Routes>
         </div>
         <div className="basis-1/8 h-full">

@@ -27,7 +27,6 @@ const ToolCard = ({ title, description, buttons }) => (
           <a
             key={btn.label + idx}
             href={btn.url}
-            target="_blank"
             rel="noopener noreferrer"
             className="btn btn-neutral h-20 md:h-12"
           >

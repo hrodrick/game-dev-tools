@@ -1,10 +1,11 @@
-import { useState, useRef } from "react";
 import WebIcon from "../Icons/WebIcon";
 import XIcon from "../Icons/XIcon";
 import LinkedInIcon from "../Icons/RedditIcon";
 import ShareIcon from "../Icons/ShareIcon";
 import DiscordIcon from "../Icons/DiscordIcon";
 import BlueSkyIcon from "../Icons/BlueSkyIcon";
+import CopiedTooltip, { useCopyWithTooltip } from "./CopiedTooltip";
+
 
 const DiscordSocial = { name: "Discord", url: "https://discord.gg/NG5XscM6yt", icon: () => <DiscordIcon className="size-10 fill-neutral-content" /> }
 
@@ -16,8 +17,7 @@ const socials = [
 ]
 
 export default function Footer() {
-  const [copied, setCopied] = useState(false);
-  const copiedTimeoutRef = useRef(null);
+    const [CopiedText, copyWithTooltip] = useCopyWithTooltip();
     return (
         <footer className="flex flex-col gap-4">
             <div className="divider mb-0" />
@@ -34,23 +34,13 @@ export default function Footer() {
                 ))}
             </div>
             <p className="text-sm p-0">Know someone who could use these tools? Share it! They will love you!</p>
-            <button
-                className="btn w-full h-16 md:w-64 relative"
-                onClick={() => {
-                    navigator.clipboard.writeText(window.location.href);
-                    setCopied(true);
-                    clearTimeout(copiedTimeoutRef.current);
-                    copiedTimeoutRef.current = setTimeout(() => setCopied(false), 2000);
-                }}
-            >
-                <ShareIcon className="size-8 md:size-4 fill-neutral-content" />
-                Click to copy the link
-                {copied && (
-                    <span className="absolute left-1/2 -translate-x-1/2 top-full mt-1 text-green-500 text-sm bg-base-100 rounded px-2 shadow">
-                    Copied!
-                    </span>
-                )}
-            </button>
+            <div className="relative inline-block self-center md:self-start">
+                <button className="btn h-16 md:w-64" onClick={() => copyWithTooltip(window.location.href)}>
+                    <ShareIcon className="size-8 md:size-4 fill-neutral-content" />
+                    Click to copy the link
+                </button>
+                <CopiedTooltip show={CopiedText === window.location.href} />
+            </div>
         </footer>
     )
 }
