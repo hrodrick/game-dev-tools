@@ -56,7 +56,7 @@ const SpriteSheetCellNumberer = () => {
         label={imgUrl ? "Drop a new image to replace, or click to choose another file." : "Drag and drop your spritesheet here, or click to choose a file."}
       />
       <ImageDetails imgInfo={imgInfo} />
-      <fieldset className="box-content items-center fieldset p-4 bg-base-200 border-base-300 rounded-box border gap-4 w-full flex flex-wrap">
+      <fieldset className="box-content items-center fieldset p-4 bg-base-200 border-base-300 rounded-box border gap-4 flex flex-wrap">
         <legend className="fieldset-legend">Settings</legend>
         <div className="flex flex-col gap-2">
           <label className="label text-base text-neutral-content font-bold">Split type</label>

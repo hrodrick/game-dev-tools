@@ -47,7 +47,7 @@ export default function QuickLinks({ linkIds }) {
         <a
           key={link.id}
           href={link.href}
-          className="btn btn-outline btn-info px-8"
+          className="btn btn-outline btn-info px-8 py-2 h-fit"
         >
           {link.text}
         </a>

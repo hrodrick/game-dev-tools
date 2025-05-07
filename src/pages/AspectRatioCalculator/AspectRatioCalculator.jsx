@@ -29,7 +29,7 @@ export default function AspectRatioCalculator() {
         <h2>Quickly calculate aspect ratios and find common screen resolutions</h2>
       </header>
       {/* Responsive row of calculators */}
-      <div className="flex flex-col md:flex-row gap-4 w-full justify-center items-stretch">
+      <div className="w-full flex flex-col items-stretch md:items-center lg:flex-row lg:flex-wrap gap-4">
         {/* Aspect Ratio Calculator */}
         <fieldset className="box-content fieldset bg-base-200 border-base-300 rounded-box border gap-4 p-4 md:w-64 flex-1">
           <legend className="fieldset-legend">Aspect Ratio Calculator</legend>

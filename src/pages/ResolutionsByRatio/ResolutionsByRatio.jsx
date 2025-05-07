@@ -19,8 +19,8 @@ export default function ResolutionsByRatio() {
       </header>
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex flex-col gap-4 basis-1/3 bg-base-200 rounded-box p-4">
-          <b>Common Aspect Ratios</b>
-          <ul className="flex flex-wrap gap-2">
+          <b className="text-center lg:text-left">Common Aspect Ratios</b>
+          <ul className="flex flex-wrap gap-2 justify-center">
             {COMMON_RATIOS.map((r) => (
               <li key={r.label} className="relative">
                 <button
@@ -41,12 +41,12 @@ export default function ResolutionsByRatio() {
         </div>
         <div className="flex flex-col gap-4 basis-2/3 bg-base-200 rounded-box p-4">
           <b>Common Resolutions for {selectedRatio.label}:</b>
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-col md:flex-row gap-2 md:gap-4">
             <ul className="flex flex-col gap-2">
               {selectedResolutions.map((r) => {
                 return (
                   <li key={r.label} className="relative">
-                    <button className="btn btn-neutral" onClick={() => copyWithTooltip(r.label)}>
+                    <button className="btn btn-neutral h-fit py-2" onClick={() => copyWithTooltip(r.label)}>
                       {r.label} ({getAspectRatio(r.w, r.h)})
                     </button>
                     <CopiedTooltip show={CopiedText === r.label} />
@@ -58,7 +58,7 @@ export default function ResolutionsByRatio() {
               {selectedResolutionsRight.map((r) => {
                 return (
                   <li key={r.label} className="relative">
-                    <button className="btn btn-neutral" onClick={() => copyWithTooltip(r.label)}>
+                    <button className="btn btn-neutral h-fit py-2" onClick={() => copyWithTooltip(r.label)}>
                       {r.label} ({getAspectRatio(r.w, r.h)})
                     </button>
                     <CopiedTooltip show={CopiedText === r.label} />

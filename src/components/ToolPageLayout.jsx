@@ -17,7 +17,8 @@ export default function ToolPageLayout({
   leftContent,
   fieldsetContent,
   resultsContent,
-  className = ""
+  className = "",
+  fieldsetContentClassName = "md:w-64"
 }) {
   return (
     <div className={`tool-page-layout w-full min-h-screen flex flex-col gap-4 ${className}`}>
@@ -32,7 +33,7 @@ export default function ToolPageLayout({
         {/* Left Content (usually drag & drops + previews) */}
         <div className="flex-1 mt-4">{leftContent}</div>
         {/* Fieldset Content */}
-        <fieldset className="box-content fieldset bg-base-200 border-base-300 rounded-box border gap-4 p-4 md:w-64">
+        <fieldset className={"box-content fieldset bg-base-200 border-base-300 rounded-box border gap-4 p-4 " + fieldsetContentClassName}>
           <legend className="fieldset-legend">Settings</legend>
           {fieldsetContent}
         </fieldset>
