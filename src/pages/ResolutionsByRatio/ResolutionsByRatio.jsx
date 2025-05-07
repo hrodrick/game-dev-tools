@@ -3,6 +3,7 @@ import { COMMON_RATIOS } from "./utils";
 import { getAspectRatio } from "../../Utils/Utils";
 import Footer from "../../components/Footer";
 import CopiedTooltip, { useCopyWithTooltip } from "../../components/CopiedTooltip";
+import QuickLinks from "../../components/QuickLinks";
 
 export default function ResolutionsByRatio() {
   const [selectedRatio, setSelectedRatio] = useState(COMMON_RATIOS[0]);
@@ -74,6 +75,8 @@ export default function ResolutionsByRatio() {
           </p>
         </div>
       </div>
+      <hr className="divider" />
+      <QuickLinks linkIds={["aspectRatioCalculator", "safeArea"]} />
       <Footer />
     </div>
   );

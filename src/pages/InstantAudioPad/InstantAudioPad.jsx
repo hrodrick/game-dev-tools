@@ -125,7 +125,7 @@ export default function InstantAudioPad() {
                 onClick={() => handleButtonClick(fileObj, i)}
                 disabled={sequencePlaying}
               >
-                <p className="mask overflow-hidden size-full text-xs text-center content-center">{fileObj.name}</p>
+                <p className="mask overflow-hidden size-full text-xs text-center content-center break-all ">{fileObj.name}</p>
               </button>
             ))}
           </div>
