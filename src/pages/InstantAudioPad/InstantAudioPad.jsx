@@ -169,6 +169,7 @@ export default function InstantAudioPad() {
           </div>
         </div>
       }
+      quickLinks={["pitchRandomizer"]}
     />
   );
 }

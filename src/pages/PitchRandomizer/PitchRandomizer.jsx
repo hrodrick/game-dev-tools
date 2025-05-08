@@ -117,6 +117,7 @@ export default function PitchRandomizer() {
           {lastPitch !== null && (<div className="text-sm">Pitch used: {lastPitch.toFixed(3)}</div>)}
         </div>
       }
+      quickLinks={["instantAudioPad"]}
     />
   );
 }

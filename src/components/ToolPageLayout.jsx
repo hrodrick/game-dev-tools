@@ -1,5 +1,6 @@
 import React from "react";
 import Footer from "./Footer";
+import QuickLinks from "./QuickLinks";
 
 /**
  * Reusable layout for tool pages.
@@ -18,7 +19,8 @@ export default function ToolPageLayout({
   fieldsetContent,
   resultsContent,
   className = "",
-  fieldsetContentClassName = "md:w-64"
+  fieldsetContentClassName = "md:w-64",
+  quickLinks,
 }) {
   return (
     <div className={`tool-page-layout w-full min-h-screen flex flex-col gap-4 ${className}`}>
@@ -45,7 +47,9 @@ export default function ToolPageLayout({
           {resultsContent}
         </section>
       )}
-
+      <hr className="divider mt-6" />
+      {/* Quick Links */}
+      {quickLinks && <QuickLinks linkIds={quickLinks} />}
       {/* Footer (optional, can be slotted in as children if needed) */}
       <Footer />
     </div>

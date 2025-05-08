@@ -75,7 +75,7 @@ export default function ResolutionsByRatio() {
           </p>
         </div>
       </div>
-      <hr className="divider" />
+      <hr className="divider mt-6" />
       <QuickLinks linkIds={["aspectRatioCalculator", "safeArea"]} />
       <Footer />
     </div>

@@ -98,6 +98,7 @@ export default function SpriteSheetCombiner() {
           </div>
         )
       }
+      quickLinks={["split", "cellIdentifier"]}
     />
   );
 }

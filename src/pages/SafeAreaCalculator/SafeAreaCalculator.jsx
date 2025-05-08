@@ -118,10 +118,9 @@ export default function SafeAreaCalculator() {
           <div className="text-sm text-neutral-content">
             <b>What is this?</b><br />
             "Safe areas" are recommended margins for UI on TVs and some monitors. Important text and UI should stay inside the <span className="text-secondary font-bold">Title Safe</span> area, and essential visuals inside the <span className="text-primary font-bold">Action Safe</span> area. This helps avoid overscan/trimming on TVs and ensures a good user experience.
-            <hr className="divider mt-6" />
-            <QuickLinks linkIds={["aspectRatioCalculator", "resolutions"]} />
           </div>
         }
+        quickLinks={["aspectRatioCalculator", "resolutions"]}
       />
     </>
   );

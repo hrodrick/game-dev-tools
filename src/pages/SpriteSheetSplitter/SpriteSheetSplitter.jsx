@@ -244,6 +244,7 @@ export default function SpriteSheetSplitter() {
           </div>
         )
       }
+      quickLinks={["combine", "cellIdentifier"]}
     />
   );
 }

@@ -10,6 +10,10 @@ export const QUICK_LINKS = {
     href: "/combine",
     text: "Combine multiple images into one"
   },
+  split: {
+    href: "/split",
+    text: "Split an image into multiple images"
+  },
   aspectRatioCalculator: {
     href: "/aspect-ratio-calculator",
     text: "Calculate aspect ratios, and the width or height of a screen"
@@ -24,11 +28,11 @@ export const QUICK_LINKS = {
   },
   instantAudioPad: {
     href: "/instant-audio-pad",
-    text: "Play multiple audio files instantly or in sequence with randomized pitch"
+    text: "Play multiple audio files quickly on our Audio Pad!"
   },
   pitchRandomizer: {
     href: "/pitch-randomizer",
-    text: "Randomize audio pitch easily"
+    text: "Find the ideal pitch for an audio file"
   },
 };
 

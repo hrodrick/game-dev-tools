@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import ImageWithOverlay from "./components/ImageWithOverlay";
 import MultiDropZone from "../../components/MultiDropZone";
 import ImageDetails from "../../components/ImageDetails";
+import QuickLinks from "../../components/QuickLinks";
+import Footer from "../../components/Footer";
 
 const SpriteSheetCellNumberer = () => {
   const [image, setImage] = useState(null);
@@ -122,6 +124,9 @@ const SpriteSheetCellNumberer = () => {
           cellHeight={cellHeight}
         />
       )}
+      <hr className="divider mt-6" />
+      <QuickLinks linkIds={["combine", "split"]} />
+      <Footer />
     </div>
   );
 };
