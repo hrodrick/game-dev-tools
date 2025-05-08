@@ -52,6 +52,7 @@ export default function Header() {
                 </ul>
               </details>
               </li>
+              <li><a href="/recommended-assets">Recommended Assets</a></li>
             </ul>
           </div>
           <a className="btn btn-ghost text-xl">Game Dev Utils</a>
@@ -98,6 +99,9 @@ export default function Header() {
                 <li><a href="/safe-area-calculator">Safe area calculator</a></li>
                 <li><a href="/resolutions-by-ratio">Common resolutions & ratios</a></li>
               </ul>
+            </li>
+            <li tabIndex={4} role="button" className="btn btn-ghost">
+              <a href="/recommended-assets">Recommended Assets</a>
             </li>
           </ul>
           </div>

@@ -35,10 +35,12 @@ export default function ToolPageLayout({
         {/* Left Content (usually drag & drops + previews) */}
         <div className="flex-1 mt-4">{leftContent}</div>
         {/* Fieldset Content */}
-        <fieldset className={"box-content fieldset bg-base-200 border-base-300 rounded-box border gap-4 p-4 " + fieldsetContentClassName}>
-          <legend className="fieldset-legend">Settings</legend>
-          {fieldsetContent}
-        </fieldset>
+        {fieldsetContent && (
+          <fieldset className={"box-content fieldset bg-base-200 border-base-300 rounded-box border gap-4 p-4 " + fieldsetContentClassName}>
+            <legend className="fieldset-legend">Settings</legend>
+            {fieldsetContent}
+          </fieldset>
+        )}
       </div>
 
       {/* Results Area */}
