@@ -53,6 +53,7 @@ export default function Header() {
               </details>
               </li>
               <li><a href="/recommended-assets">Recommended Assets</a></li>
+              <li><a href="/about">About</a></li>
             </ul>
           </div>
           <a className="btn btn-ghost text-xl">Game Dev Utils</a>
@@ -106,7 +107,7 @@ export default function Header() {
           </ul>
           </div>
         <div className="navbar-end">
-          <a className="btn btn-ghost">About</a>
+          <a href="/about" className="btn btn-ghost">About</a>
         </div>
       </div>
     </header>

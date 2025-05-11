@@ -12,6 +12,7 @@ import Header from "./components/Header";
 import AdPlaceholder from "./components/AdPlaceholder";
 import ResolutionsByRatio from "./pages/ResolutionsByRatio/ResolutionsByRatio";
 import RecommendedAssets from "./pages/RecommendedAssets/RecommendedAssets";
+import About from "./pages/About/About";
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="/resolutions-by-ratio" element={<ResolutionsByRatio />} />
             <Route path="/safe-area-calculator" element={<SafeAreaCalculator />} />
             <Route path="/recommended-assets" element={<RecommendedAssets />} />
+            <Route path="/about" element={<About />} />
           </Routes>
         </div>
         <div className="basis-1/8 h-full">
