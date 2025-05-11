@@ -27,7 +27,7 @@ export default function ToolPageLayout({
       {/* Title and Description */}
       <header className="flex flex-col gap-4">
         {title && <h1 className="text-xl font-bold">{title}</h1>}
-        {description && <h2>{description}</h2>}
+        {description && <h2 className="whitespace-pre-line">{description}</h2>}
       </header>
 
       {/* Main Row (responsive) */}
@@ -49,9 +49,13 @@ export default function ToolPageLayout({
           {resultsContent}
         </section>
       )}
-      <hr className="divider mt-6" />
       {/* Quick Links */}
-      {quickLinks && <QuickLinks linkIds={quickLinks} />}
+      {quickLinks && 
+        <> 
+          <hr className="divider mt-6" /> 
+          <QuickLinks linkIds={quickLinks} /> 
+        </>
+      }
       {/* Footer (optional, can be slotted in as children if needed) */}
       <Footer />
     </div>

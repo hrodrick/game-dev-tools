@@ -2,6 +2,10 @@ import React from "react";
 
 // Centralized link definitions
 export const QUICK_LINKS = {
+  home: {
+    href: "/",
+    text: "Quick link to home"
+  },
   cellIdentifier: {
     href: "/cell-numberer",
     text: "Identify cell IDs on big sprite sheets or icon sets"
