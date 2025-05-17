@@ -38,6 +38,14 @@ export const QUICK_LINKS = {
     href: "/pitch-randomizer",
     text: "Find the ideal pitch for an audio file"
   },
+  recommendedAssets: {
+    href: "/recommended-assets",
+    text: "Recommended Game Assets"
+  },
+  about: {
+    href: "/about",
+    text: "About"
+  },
 };
 
 /**

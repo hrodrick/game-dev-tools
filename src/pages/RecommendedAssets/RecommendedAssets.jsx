@@ -170,7 +170,7 @@ export default function RecommendedAssets() {
           ))}
         </div>
       }
-      quickLinks={["home"]}
+      quickLinks={["about", "home"]}
     />
   );
 }

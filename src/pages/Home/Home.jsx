@@ -39,9 +39,10 @@ export default function Home() {
       />
       <ToolCard
         title="Recommendations"
-        description="Assets I personally worked with and recommend for game development."
+        description="Assets I personally worked with and recommend for game development. Many of them I use daily. Also, checkout the About site :)"
         buttons={[
           { label: "Recommended Assets", url: "/recommended-assets" },
+          { label: "About", url: "/about" },
         ]}
       />
       <Footer />

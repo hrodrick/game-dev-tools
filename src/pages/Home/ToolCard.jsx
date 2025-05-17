@@ -28,7 +28,7 @@ const ToolCard = ({ title, description, buttons }) => (
             key={btn.label + idx}
             href={btn.url}
             rel="noopener noreferrer"
-            className="btn btn-neutral h-20 md:h-12"
+            className="btn btn-neutral h-24 md:h-12"
           >
             {btn.label}
           </a>
