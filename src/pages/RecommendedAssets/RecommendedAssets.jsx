@@ -161,7 +161,7 @@ export default function RecommendedAssets() {
                 <h2 className="text-xl font-bold">{cat.title}</h2>
                 <p className="text-sm text-neutral-content">{cat.description}</p>
               </div>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 justify-center md:justify-start">
                 {cat.assets.map((asset, j) => (
                   <AssetCard key={j} asset={asset} />
                 ))}

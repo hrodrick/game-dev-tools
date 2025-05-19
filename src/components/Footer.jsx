@@ -42,7 +42,7 @@ export default function Footer() {
                 <CopiedTooltip show={CopiedText === window.location.href} />
             </div>
             <div className="flex flex-col gap-4 relative self-center md:self-start">
-                <p className="text-sm p-0">Btw, would you like to financially support the project? </p>
+                <p className="text-sm p-0">If you would like to financially support the project, feel free to use the following button:</p>
                 <a href='https://ko-fi.com/rosodev?utm_source=gameDevUtilsWeb' target='_blank'>
                     <button className="btn btn-content-neutral w-64 h-16">
                         <img className="h-5" src='/assets/icons/ko-fi.webp' alt='Buy Me a Coffee at ko-fi.com' />
@@ -50,7 +50,7 @@ export default function Footer() {
                     </button>
                 </a>
             </div>
-            <p className="text-sm p-0">Did you reach this far? Wow! Thanks for reading! I truly appreciate it! </p>
+            <p className="text-sm p-0">Did you reach this far? Wow! Thanks for reading! I truly appreciate it! I hope these tools are helpful for you and your projects!</p>
         </footer>
     )
 }

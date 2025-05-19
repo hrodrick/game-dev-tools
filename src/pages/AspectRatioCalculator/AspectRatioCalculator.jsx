@@ -26,7 +26,7 @@ export default function AspectRatioCalculator() {
     <div className="flex flex-col gap-4 w-full">
       <header className="flex flex-col gap-4">
         <h1 className="text-xl font-bold">Aspect Ratio Calculator</h1>
-        <h2>Quickly calculate aspect ratios and find common screen resolutions</h2>
+        <h2>Quickly calculate the aspect ratio based on a resolution (width x height), or find the height or width based on its counterpart and a desired aspect ratio</h2>
       </header>
       {/* Responsive row of calculators */}
       <div className="w-full flex flex-col items-stretch md:items-center lg:flex-row lg:flex-wrap gap-4">
