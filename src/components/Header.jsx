@@ -56,7 +56,7 @@ export default function Header() {
               <li><a href="/about">About</a></li>
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">Game Dev Utils</a>
+          <a className="btn btn-ghost text-xl" href="/">Game Dev Utils</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">

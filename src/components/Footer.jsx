@@ -35,22 +35,22 @@ export default function Footer() {
             </div>
             <p className="text-sm p-0">Know someone who could use these tools? Share it! They will love you!</p>
             <div className="relative inline-block self-center md:self-start">
-                <button className="btn h-16 md:w-64" onClick={() => copyWithTooltip(window.location.href)}>
+                <button className="btn h-16 w-64" onClick={() => copyWithTooltip(window.location.href)}>
                     <ShareIcon className="size-8 md:size-4 fill-neutral-content" />
                     Click to copy the link
                 </button>
                 <CopiedTooltip show={CopiedText === window.location.href} />
             </div>
             <div className="flex flex-col gap-4 relative self-center md:self-start">
-                <p className="text-sm p-0">If you would like to financially support the project, feel free to use the following button:</p>
-                <a href='https://ko-fi.com/rosodev?utm_source=gameDevUtilsWeb' target='_blank'>
+                <p className="text-sm p-0">If you would like to financially support the project and keep it ad-free, please use the following button</p>
+                <a href='https://ko-fi.com/rosodev?utm_source=gameDevUtilsWeb' target='_blank' className="flex justify-center md:justify-start">
                     <button className="btn btn-content-neutral w-64 h-16">
                         <img className="h-5" src='/assets/icons/ko-fi.webp' alt='Buy Me a Coffee at ko-fi.com' />
                         Buy me a coffee
                     </button>
                 </a>
             </div>
-            <p className="text-sm p-0">Did you reach this far? Wow! Thanks for reading! I truly appreciate it! I hope these tools are helpful for you and your projects!</p>
+            <p className="text-sm p-0">Did you reach this far? Wow! Thanks for reading! I truly appreciate it! I hope these tools are helpful for you and your projects, and wish you the best!</p>
         </footer>
     )
 }

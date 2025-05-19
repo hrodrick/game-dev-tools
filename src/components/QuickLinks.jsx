@@ -58,12 +58,12 @@ export default function QuickLinks({ linkIds }) {
     .filter(link => link.href && link.text);
   if (filtered.length === 0) return null;
   return (
-    <div className="flex flex-col gap-4 w-fit">
+    <div className="flex flex-col items-center md:items-start gap-4 w-full md:w-fit">
       {filtered.map(link => (
         <a
           key={link.id}
           href={link.href}
-          className="btn btn-outline btn-info px-8 py-2 h-fit"
+          className="btn btn-outline btn-info px-8 py-2 h-fit w-full md:w-fit md:min-w-64"
         >
           {link.text}
         </a>
