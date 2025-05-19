@@ -12,7 +12,7 @@ const arrowDown = <svg
 
 export default function Header() {
   return (
-    <header>
+    <header className="sticky top-0 z-50 shadow-2xl">
       <div className="navbar bg-base-200 shadow-sm">
         <div className="navbar-start">
           <div className="dropdown">

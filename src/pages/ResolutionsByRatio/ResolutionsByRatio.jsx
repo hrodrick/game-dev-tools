@@ -46,7 +46,7 @@ export default function ResolutionsByRatio() {
               {selectedResolutions.map((r) => {
                 return (
                   <li key={r.label} className="relative">
-                    <button className="btn btn-neutral h-fit py-2" onClick={() => copyWithTooltip(r.label)}>
+                    <button className="btn btn-neutral w-full h-fit py-2" onClick={() => copyWithTooltip(r.label)}>
                       {r.label} ({getAspectRatio(r.w, r.h)})
                     </button>
                     <CopiedTooltip show={CopiedText === r.label} />
@@ -58,7 +58,7 @@ export default function ResolutionsByRatio() {
               {selectedResolutionsRight.map((r) => {
                 return (
                   <li key={r.label} className="relative">
-                    <button className="btn btn-neutral h-fit py-2" onClick={() => copyWithTooltip(r.label)}>
+                    <button className="btn btn-neutral w-full h-fit py-2" onClick={() => copyWithTooltip(r.label)}>
                       {r.label} ({getAspectRatio(r.w, r.h)})
                     </button>
                     <CopiedTooltip show={CopiedText === r.label} />
