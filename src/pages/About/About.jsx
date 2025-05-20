@@ -36,11 +36,11 @@ export default function About() {
       leftContent={
         <div className="flex flex-col gap-8">
           <section>
-            <h2 className="text-xl font-bold">The Game Dev Utils initiative</h2>
+            <h2 className="text-xl font-bold mb-4">The Game Dev Utils initiative</h2>
             <p className="text-base whitespace-pre-line">As a game developer, I kept running into the same problem: needing a simple tool, googling around, and landing on cluttered websites filled with popups, full-screen ads, mandatory sign-up forms, and endless cookie walls. Just to get one small thing done. It was distracting, frustrating, and a waste of time.<br /> <br />
             <b className="italic">Game Dev Utils</b> is my answer to that. It's a clean, ad-free space with the tools I wish I always had. It's a growing collection of quick, simple, and actually helpful utilities and resources built to save time, reduce friction, and keep you focused on what really matters: making great games.<br /> <br />
             <div className="divider"></div>
-            <h2 className="text-xl font-bold">Support the project</h2>
+            <h2 className="text-xl font-bold mb-4">Support the project</h2>
             If you'd like to contribute ideas, share feedback, or just connect with other devs, <a href="https://discord.gg/NG5XscM6yt?utm_source=gameDevUtilsWeb" className="link">join us on Discord</a>. We're building a friendly community of creators helping each other out.<br />
             Want to support the project? You can buy one of my games or paid tools listed below, or just send a donation through <a href="https://ko-fi.com/rosodev?utm_source=gameDevUtilsWeb" className="link">this Ko-fi link</a>. Every little bit helps keep this space growing and ad-free!</p>
           </section>
