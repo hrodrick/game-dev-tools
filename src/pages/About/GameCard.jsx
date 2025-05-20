@@ -13,7 +13,11 @@ export default function GameCard({ game }) {
       </div>
       <div className="flex flex-col gap-3 flex-1">
         <h3 className="text-2xl font-bold">{game.title}</h3>
-        <p className="text-base text-neutral-content flex-1">{game.description}</p>
+        {typeof game.description === "string" ? (
+          <p className="text-base text-neutral-content flex-1">{game.description}</p>
+        ) : (
+          <div className="text-base text-neutral-content flex-1">{game.description}</div>
+        )}
         {game.url && ( <a href={game.url} target="_blank" rel="noopener noreferrer" className={game.btnStyle}>{game.btnText}</a>)}
       </div>
     </div>

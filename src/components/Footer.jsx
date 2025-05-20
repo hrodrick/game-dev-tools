@@ -16,8 +16,19 @@ const socials = [
   { name: "Website", url: "https://anawimstudios.com/", icon: () => <WebIcon className="size-10 fill-neutral-content" /> },
 ]
 
+import React, { useEffect, useState } from "react";
+// ...other imports remain unchanged
+
 export default function Footer() {
     const [CopiedText, copyWithTooltip] = useCopyWithTooltip();
+    const [currentUrl, setCurrentUrl] = useState("");
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setCurrentUrl(window.location.href);
+        }
+    }, []);
+
     return (
         <footer className="flex flex-col gap-4">
             <div className="divider mb-0" />
@@ -35,11 +46,11 @@ export default function Footer() {
             </div>
             <p className="text-sm p-0">Know someone who could use these tools? Share it! They will love you!</p>
             <div className="relative inline-block self-center md:self-start">
-                <button className="btn h-16 w-64" onClick={() => copyWithTooltip(window.location.href)}>
+                <button className="btn h-16 w-64" onClick={() => copyWithTooltip(currentUrl)}>
                     <ShareIcon className="size-8 md:size-4 fill-neutral-content" />
                     Click to copy the link
                 </button>
-                <CopiedTooltip show={CopiedText === window.location.href} />
+                <CopiedTooltip show={CopiedText === currentUrl} />
             </div>
             <div className="flex flex-col gap-4 relative self-center md:self-start">
                 <p className="text-sm p-0">If you would like to financially support the project and keep it ad-free, please use the following button</p>
@@ -52,5 +63,5 @@ export default function Footer() {
             </div>
             <p className="text-sm p-0">Did you reach this far? Wow! Thanks for reading! I truly appreciate it! I hope these tools are helpful for you and your projects, and wish you the best!</p>
         </footer>
-    )
+    );
 }

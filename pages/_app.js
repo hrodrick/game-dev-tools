@@ -1,14 +1,13 @@
-import React from "react";
+import '../index.css';
+import Header from '../src/components/Header';
 
-import Header from "./components/Header";
-
-export default function App() {
+export default function MyApp({ Component, pageProps }) {
   return (
     <div className="bg-base-100 w-full">
       <Header />
       <div className="flex flex-col items-center min-h-screen p-4">
         <div className="w-full max-w-4xl bg-base-100 p-6 rounded-lg shadow-md">
-          {/* Page content will be rendered by Next.js pages */}
+          <Component {...pageProps} />
         </div>
       </div>
     </div>

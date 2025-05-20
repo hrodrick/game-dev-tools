@@ -27,7 +27,7 @@ export default function ToolPageLayout({
       {/* Title and Description */}
       <header className="flex flex-col gap-4">
         {title && <h1 className="text-xl font-bold">{title}</h1>}
-        {description && <h2 className="whitespace-pre-line">{description}</h2>}
+        {description && <div className="whitespace-pre-line text-lg font-semibold">{description}</div>}
       </header>
 
       {/* Main Row (responsive) */}
