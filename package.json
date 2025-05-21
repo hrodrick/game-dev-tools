@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "vercel-build": "next build && next export -o dist",
+    "vercel-build": "next build",
     "start": "next start",
-    "export": "next export -o dist"
+    "export": "next build"
   },
   "engines": {
     "node": ">=18.0.0"

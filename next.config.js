@@ -1,19 +1,41 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Enable static export
   output: 'export',
-  // Optional: Add a trailing slash to all paths
+  
+  // Add a trailing slash to all paths
   trailingSlash: true,
-  // Optional: Change the output directory `out` -> `dist`
+  
+  // Set the output directory to 'dist' for Vercel
   distDir: 'dist',
+  
   // Enable React Strict Mode
   reactStrictMode: true,
-  // Enable static exports for the App Router
+  
+  // Configure images for static export
   images: {
     unoptimized: true,
   },
-  // Optional: Disable server-side rendering at build time
-  // (Makes static export work with dynamic routes)
-  // output: 'export',
+  
+  // Disable the default static export behavior for API routes
+  // since we're using static export
+  experimental: {
+    appDir: false,
+  },
+  
+  // Custom webpack configuration to ensure proper static export
+  webpack: (config, { isServer }) => {
+    // Fixes npm packages that depend on `fs` module
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+        os: false,
+      };
+    }
+    return config;
+  },
 };
 
 module.exports = nextConfig;
