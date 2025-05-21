@@ -7,6 +7,8 @@
 - The project uses **daisyUI** for component and UI styling.
 - File structure is the following:
 ```
+pages/
+├── (list of js files where js file is a route on the system (individual pages) where each route loads its specific page component, which should have its own folder in src/pages/)
 src/
 ├── components/
 │   ├── (list of reusable components across every page)
@@ -30,3 +32,6 @@ src/
 ## General Notes
 - Please follow these styling guidelines for all new code and refactors unless otherwise specified.
 - If there are updates to the recommended instruction file format, please update this file accordingly.
+- We are using **SSG** (Static Site Generation) for the website via Next.js.
+- We are using Github as the repository.
+- We are using Vercel as the deployment platform. And it is integrated with Github to deploy automatically on push. The main branch is used for the production environment, the rest are used for the preview environment.
