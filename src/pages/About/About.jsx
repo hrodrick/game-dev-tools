@@ -42,7 +42,8 @@ export default function About() {
             <div className="divider"></div>
             <h2 className="text-xl font-bold mb-4">Support the project</h2>
             If you'd like to contribute ideas, share feedback, or just connect with other devs, <a href="https://discord.gg/NG5XscM6yt?utm_source=gameDevUtilsWeb" className="link">join us on Discord</a>. We're building a friendly community of creators helping each other out.<br />
-            Want to support the project? You can buy one of my games or paid tools listed below, or just send a donation through <a href="https://ko-fi.com/rosodev?utm_source=gameDevUtilsWeb" className="link">this Ko-fi link</a>. Every little bit helps keep this space growing and ad-free!</p>
+            <br />
+            Hosting this website can become expensive, and I'm doing it all for free. If you'd like to support the project, you can buy one of my games or paid tools listed below, or just send a donation through <a href="https://ko-fi.com/rosodev?utm_source=gameDevUtilsWeb" className="link">this Ko-fi link</a>. Every little bit helps keep this space growing and ad-free!</p>
           </section>
           <section className="flex flex-col gap-4">
             <h2 className="text-xl font-bold">Commercial Games & Tools I've made</h2>

@@ -6,7 +6,6 @@ import DiscordIcon from "../Icons/DiscordIcon";
 import BlueSkyIcon from "../Icons/BlueSkyIcon";
 import CopiedTooltip, { useCopyWithTooltip } from "./CopiedTooltip";
 
-
 const DiscordSocial = { name: "Discord", url: "https://discord.gg/NG5XscM6yt", icon: () => <DiscordIcon className="size-10 fill-neutral-content" /> }
 
 const socials = [
@@ -21,7 +20,7 @@ export default function Footer() {
     return (
         <footer className="flex flex-col gap-4">
             <div className="divider mb-0" />
-            <p className="text-sm p-0">Missing a tool? Have an idea? Join our Discord and Let me know!</p>
+            <p className="text-sm p-0">Got an idea or would like more tools? Come hang out on Discord and let me know! I'd love your feedback!</p>
             <a className="btn btn-ghost w-24 self-center md:self-start" key={DiscordSocial.name} href={DiscordSocial.url} target="_blank" rel="noopener noreferrer">
                 {DiscordSocial.icon()}
             </a>
@@ -41,15 +40,13 @@ export default function Footer() {
                 </button>
                 <CopiedTooltip show={CopiedText === window.location.href} />
             </div>
-            <div className="flex flex-col gap-4 relative self-center md:self-start">
-                <p className="text-sm p-0">If you would like to financially support the project and keep it ad-free, please use the following button</p>
-                <a href='https://ko-fi.com/rosodev?utm_source=gameDevUtilsWeb' target='_blank' className="flex justify-center md:justify-start">
-                    <button className="btn btn-content-neutral w-64 h-16">
-                        <img className="h-5" src='/assets/icons/ko-fi.webp' alt='Buy Me a Coffee at ko-fi.com' />
-                        Buy me a coffee
-                    </button>
-                </a>
-            </div>
+            <p className="text-sm p-0">If you'd like to support the project and help keep it ad-free, please use the button below or visit the <a href="/about" className="link">About page</a> for more details. Every bit of support means a lot!</p>
+            <a href='https://ko-fi.com/rosodev?utm_source=gameDevUtilsWeb' target='_blank' className="flex justify-center md:justify-start w-64">
+                <button className="btn btn-content-neutral w-64 h-16">
+                    <img className="h-5" src='/assets/icons/ko-fi.webp' alt='Buy Me a Coffee at ko-fi.com' />
+                    Buy me a coffee
+                </button>
+            </a>
             <p className="text-sm p-0">Did you reach this far? Wow! Thanks for reading! I truly appreciate it! I hope these tools are helpful for you and your projects, and wish you the best!</p>
         </footer>
     )
