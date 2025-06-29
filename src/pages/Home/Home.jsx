@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import ToolCard from "./ToolCard";
 
 import Footer from "../../components/Footer";
@@ -9,7 +10,7 @@ export default function Home() {
       <header className="flex flex-col gap-2">
         <h1 className="text-4xl">Game Dev Tools</h1>
         <h2 className="text-lg p-2">A collection of every day tools for game development</h2>
-        <p className="text-sm p-2">Hi! I'm Rodrigo Soria, indie game developer and founder of Anawim Studios. After years of tackling the same game dev challenges (and tired of losing too many Python scripts), I built this space to gather the tools I use every day. I hope they make your game dev journey a little smoother and a lot more fun! <br /> Want to know more or collaborate? Checkout the <a href="/about" className="link">about page</a>! </p>
+        <p className="text-sm p-2">Hi! I'm Rodrigo Soria, indie game developer and founder of Anawim Studios. After years of tackling the same game dev challenges (and tired of losing too many Python scripts), I built this space to gather the tools I use every day. I hope they make your game dev journey a little smoother and a lot more fun! <br /> Want to know more or collaborate? Check out the <Link to="/about" className="link">about page</Link>! </p>
       </header>
       <ToolCard
         title="Sprite Sheets | Atlas | Tilesets"
@@ -39,7 +40,7 @@ export default function Home() {
       />
       <ToolCard
         title="Recommendations"
-        description="Assets I personally worked with and recommend for game development. Many of them I use daily. Also, checkout the About site :)"
+        description="Assets I personally worked with and recommend for game development. Many of them I use daily. Also, check out the About site :)"
         buttons={[
           { label: "Recommended Assets", url: "/recommended-assets" },
           { label: "About", url: "/about" },

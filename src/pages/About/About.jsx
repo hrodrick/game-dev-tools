@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import ToolPageLayout from "../../components/ToolPageLayout";
 import GameCard from "./GameCard";
 
@@ -41,7 +42,7 @@ export default function About() {
             <b className="italic">Game Dev Tools</b> is my answer to that. It's a clean, ad-free, and open-source space with the tools I wish I always had. It's a growing collection of quick, simple, and actually helpful utilities and resources built to save time, reduce friction, and keep you focused on what really matters: making great games.<br /> <br />
             <div className="divider"></div>
             <h2 className="text-xl font-bold mb-4">Support the project</h2>
-            If you'd like to contribute ideas, share feedback, or just connect with other devs, <a href="https://discord.gg/NG5XscM6yt?utm_source=game-dev-tools" className="link">join us on Discord</a>. We're building a friendly community of creators helping each other out. You can also checkout the <a href="https://github.com/hrodrick/game-dev-tools?utm_source=game-dev-tools" className="link">Github repository</a> to contribute to the project or report any issues you may find.<br />
+            If you'd like to contribute ideas, share feedback, or just connect with other devs, <a href="https://discord.gg/NG5XscM6yt?utm_source=game-dev-tools" className="link">join us on Discord</a>. We're building a friendly community of creators helping each other out. You can also check out the <a href="https://github.com/hrodrick/game-dev-tools?utm_source=game-dev-tools" className="link">Github repository</a> to contribute to the project or report any issues you may find.<br />
             <br />
             Creating and maintaining this website takes a lot of time, and I'm doing it all for free. If you'd like to support the project, you can buy one of my games or paid tools listed below, or just send a donation through <a href="https://ko-fi.com/rosodev?utm_source=game-dev-tools" className="link">this Ko-fi link</a>. Every little bit helps keep this space growing and ad-free!</p>
           </section>

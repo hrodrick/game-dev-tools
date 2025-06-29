@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const dropdownStyle = "menu dropdown-content p-2 bg-base-200 shadow-sm rounded-tl-none rounded-tr-none";
 
@@ -22,14 +23,14 @@ export default function Header() {
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-              <li><a href="/">Home</a></li>
+              <li><Link to="/">Home</Link></li>
               <li>
                 <details>
                 <summary>Sprite sheets</summary>
                 <ul className="p-2">
-                  <li><a href="/combine">Combiner</a></li>
-                  <li><a href="/split">Splitter</a></li>
-                  <li><a href="/cell-numberer">Cell Identifier</a></li>
+                  <li><Link to="/combine">Combiner</Link></li>
+                  <li><Link to="/split">Splitter</Link></li>
+                  <li><Link to="/cell-numberer">Cell Identifier</Link></li>
                 </ul>
                 </details>
               </li>
@@ -37,8 +38,8 @@ export default function Header() {
               <details>
               <summary>Audio</summary>
                 <ul className="p-2">
-                  <li><a href="/pitch-randomizer">Pitch randomizer</a></li>
-                  <li><a href="/instant-audio-pad">Instant Audio Pad</a></li>
+                  <li><Link to="/pitch-randomizer">Pitch randomizer</Link></li>
+                  <li><Link to="/instant-audio-pad">Instant Audio Pad</Link></li>
                 </ul>
               </details>
               </li>
@@ -46,22 +47,22 @@ export default function Header() {
               <details>
               <summary>Math & Dimensions</summary>
                 <ul className="p-2">
-                  <li><a href="/aspect-ratio-calculator">Aspect ratio calculator</a></li>
-                  <li><a href="/safe-area-calculator">Safe area calculator</a></li>
-                  <li><a href="/resolutions-by-ratio">Common resolutions & ratios</a></li>
+                  <li><Link to="/aspect-ratio-calculator">Aspect ratio calculator</Link></li>
+                  <li><Link to="/safe-area-calculator">Safe area calculator</Link></li>
+                  <li><Link to="/resolutions-by-ratio">Common resolutions & ratios</Link></li>
                 </ul>
               </details>
               </li>
-              <li><a href="/recommended-assets">Recommended Assets</a></li>
-              <li><a href="/about">About</a></li>
+              <li><Link to="/recommended-assets">Recommended Assets</Link></li>
+              <li><Link to="/about">About</Link></li>
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl" href="/">Game Dev Tools</a>
+          <Link className="btn btn-ghost text-xl" to="/">Game Dev Tools</Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li tabIndex={0} role="button" className="btn btn-ghost">
-                <a href="/">Home</a>
+                <Link to="/">Home</Link>
             </li>
             <li className="dropdown">
               <div tabIndex={1} role="button" className="btn btn-ghost rounded-field">
@@ -71,9 +72,9 @@ export default function Header() {
               <ul 
                 tabIndex={1}
                 className={dropdownStyle}>
-                <li><a href="/combine">Combiner</a></li>
-                <li><a href="/split">Splitter</a></li>
-                <li><a href="/cell-numberer">Cell Identifier</a></li>
+                <li><Link to="/combine">Combiner</Link></li>
+                <li><Link to="/split">Splitter</Link></li>
+                <li><Link to="/cell-numberer">Cell Identifier</Link></li>
               </ul>
             </li>
             <li className="dropdown">
@@ -84,8 +85,8 @@ export default function Header() {
               <ul 
                 tabIndex={2}
                 className={dropdownStyle}>
-                <li><a href="/pitch-randomizer">Pitch randomizer</a></li>
-                <li><a href="/instant-audio-pad">Instant Audio Pad</a></li>
+                <li><Link to="/pitch-randomizer">Pitch randomizer</Link></li>
+                <li><Link to="/instant-audio-pad">Instant Audio Pad</Link></li>
               </ul>
             </li>
             <li className="dropdown">
@@ -96,18 +97,18 @@ export default function Header() {
               <ul 
                 tabIndex={3}
                 className={dropdownStyle}>
-                <li><a href="/aspect-ratio-calculator">Aspect ratio calculator</a></li>
-                <li><a href="/safe-area-calculator">Safe area calculator</a></li>
-                <li><a href="/resolutions-by-ratio">Common resolutions & ratios</a></li>
+                <li><Link to="/aspect-ratio-calculator">Aspect ratio calculator</Link></li>
+                <li><Link to="/safe-area-calculator">Safe area calculator</Link></li>
+                <li><Link to="/resolutions-by-ratio">Common resolutions & ratios</Link></li>
               </ul>
             </li>
             <li tabIndex={4} role="button" className="btn btn-ghost">
-              <a href="/recommended-assets">Recommended Assets</a>
+              <Link to="/recommended-assets">Recommended Assets</Link>
             </li>
           </ul>
           </div>
         <div className="navbar-end">
-          <a href="/about" className="btn btn-ghost">About</a>
+          <Link to="/about" className="btn btn-ghost">About</Link>
         </div>
       </div>
     </header>

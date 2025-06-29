@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 /**
  * @typedef {Object} ToolCardButton
@@ -24,14 +25,13 @@ const ToolCard = ({ title, description, buttons }) => (
       <p className="pb-2">{description}</p>
       <div className="card-actions grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {buttons.map((btn, idx) => (
-          <a
+          <Link
             key={btn.label + idx}
-            href={btn.url}
-            rel="noopener noreferrer"
+            to={btn.url}
             className="btn btn-neutral h-24 md:h-12"
           >
             {btn.label}
-          </a>
+          </Link>
         ))}
       </div>
     </div>

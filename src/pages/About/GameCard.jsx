@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 /**
  * GameCard component
@@ -14,7 +15,7 @@ export default function GameCard({ game }) {
       <div className="flex flex-col gap-3 flex-1">
         <h3 className="text-2xl font-bold">{game.title}</h3>
         <p className="text-base text-neutral-content flex-1">{game.description}</p>
-        {game.url && ( <a href={game.url} target="_blank" rel="noopener noreferrer" className={game.btnStyle}>{game.btnText}</a>)}
+        {game.url && ( <Link to={game.url} className={game.btnStyle}>{game.btnText}</Link>)}
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import MultiDropZone from "../../components/MultiDropZone";
 import ToolPageLayout from "../../components/ToolPageLayout";
 
@@ -92,7 +93,7 @@ export default function PitchRandomizer() {
       description={
         <>
           <h2>Tired of waiting for the media player to load your audio file? Use this tool to quickly play a sound file! And even more, find the perfect pitch range for it right here!</h2>
-          <p>Want to upload multiple files at once? Check out the <a href="/instant-audio-pad" className="link">Instant Audio Pad tool</a>!</p>
+          <p>Want to upload multiple files at once? Check out the <Link to="/instant-audio-pad" className="link">Instant Audio Pad tool</Link>!</p>
         </>
       }
       leftContent={

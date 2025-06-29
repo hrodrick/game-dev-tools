@@ -12,5 +12,13 @@ export default defineConfig(({ command, mode }) => {
   return {
     plugins: [react()],
     base,
+    server: {
+      // This ensures that the development server handles the SPA fallback correctly
+      historyApiFallback: true,
+    },
+    // Ensure Vite serves the correct base URL in development
+    define: command === 'serve' ? {
+      'import.meta.env.BASE_URL': JSON.stringify('/')
+    } : {}
   };
 });
