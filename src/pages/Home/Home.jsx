@@ -7,9 +7,9 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-4">
       <header className="flex flex-col gap-2">
-        <h1 className="text-4xl">GameDev Utils</h1>
+        <h1 className="text-4xl">Game Dev Tools</h1>
         <h2 className="text-lg p-2">A collection of every day tools for game development</h2>
-        <p className="text-sm p-2">Hi! I'm Rodrigo Soria, indie game developer and founder of Anawim Studios. After years of tackling the same game dev challenges (and tired of losing too many Python scripts), I built this space to gather the tools I use every day. I hope they make your game dev journey a little smoother and a lot more fun!</p>
+        <p className="text-sm p-2">Hi! I'm Rodrigo Soria, indie game developer and founder of Anawim Studios. After years of tackling the same game dev challenges (and tired of losing too many Python scripts), I built this space to gather the tools I use every day. I hope they make your game dev journey a little smoother and a lot more fun! <br /> Want to know more or collaborate? Checkout the <a href="/about" className="link">about page</a>! </p>
       </header>
       <ToolCard
         title="Sprite Sheets | Atlas | Tilesets"

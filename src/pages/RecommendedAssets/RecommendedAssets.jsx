@@ -83,14 +83,14 @@ const categories = [
         title: "Kenney Game Assets",
         description: "A huge collection of free 2D and 3D assets, perfect for prototyping and even commercial games!",
         image: "https://kenney.nl/data/img/logo@2.png",
-        url: "https://kenney.nl/assets?utm_source=gameDevUtilsWeb",
+        url: "https://kenney.nl/assets?utm_source=game-dev-tools",
         tags: ["free"]
       },
       {
         title: "Vector Game Icons",
         description: "A huge collection of 4000+ beautiful free game icons made in vector format, ideal for any genre.",
         image: "/assets/recommendedTools/Game-icons-net.png",
-        url: "https://game-icons.net?utm_source=gameDevUtilsWeb",
+        url: "https://game-icons.net?utm_source=game-dev-tools",
         tags: ["free"]
       },
       {
