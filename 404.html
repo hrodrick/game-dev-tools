@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <script>
+      // Get the current path
+      const path = window.location.pathname;
+      // Get the query string if it exists
+      const search = window.location.search;
+      // Get the hash if it exists
+      const hash = window.location.hash;
+      // Redirect to index.html with the current path and query string
+      window.location.href = 
+        '/game-dev-tools/index.html' + 
+        (path === '/' ? '' : '?redirect=' + encodeURIComponent(path + search + hash));
+    </script>
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=/game-dev-tools/" />
+    </noscript>
+  </head>
+  <body>
+    <p>Redirecting to the home page...</p>
+  </body>
+</html>
