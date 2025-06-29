@@ -1,7 +1,7 @@
 import React from "react";
 import ToolPageLayout from "../../components/ToolPageLayout";
 import GameCard from "./GameCard";
-import { getAssetPath } from "../../utils/assetPath";
+import { getAssetPath } from "../../Utils/assetPath";
 
 const games = [
   {

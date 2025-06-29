@@ -1,6 +1,6 @@
 import React from "react";
 import ToolPageLayout from "../../components/ToolPageLayout";
-import { getAssetPath } from "../../utils/assetPath";
+import { getAssetPath } from "../../Utils/assetPath";
 
 const categories = [
   {
