@@ -4,22 +4,45 @@
     <meta charset="utf-8" />
     <title>Redirecting...</title>
     <script>
-      // Get the current path
-      const path = window.location.pathname;
-      // Get the query string if it exists
+      // Get the base path from the current location
+      const basePath = '/game-dev-tools';
+      
+      // Get the current path, removing any trailing slashes
+      let path = window.location.pathname.replace(/\/+$/, '');
+      
+      // Remove the base path if present
+      if (path.startsWith(basePath)) {
+        path = path.substring(basePath.length);
+      }
+      
+      // Get the query string and hash
       const search = window.location.search;
-      // Get the hash if it exists
       const hash = window.location.hash;
-      // Redirect to index.html with the current path and query string
-      window.location.href = 
-        '/game-dev-tools/index.html' + 
-        (path === '/' ? '' : '?redirect=' + encodeURIComponent(path + search + hash));
+      
+      // Build the redirect URL
+      let redirectUrl = basePath + '/index.html';
+      
+      // Add the original path as a query parameter if it's not the root
+      if (path && path !== '/') {
+        redirectUrl += '?redirect=' + encodeURIComponent(path);
+      }
+      
+      // Add the search and hash if they exist
+      if (search) {
+        redirectUrl += (redirectUrl.includes('?') ? '&' : '?') + search.substring(1);
+      }
+      if (hash) {
+        redirectUrl += hash;
+      }
+      
+      // Perform the redirect
+      window.location.href = redirectUrl;
     </script>
     <noscript>
       <meta http-equiv="refresh" content="0; url=/game-dev-tools/" />
     </noscript>
   </head>
   <body>
-    <p>Redirecting to the home page...</p>
+    <p>Redirecting to the application...</p>
   </body>
 </html>
