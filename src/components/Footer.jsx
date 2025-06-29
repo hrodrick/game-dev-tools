@@ -7,6 +7,7 @@ import DiscordIcon from "../Icons/DiscordIcon";
 import BlueSkyIcon from "../Icons/BlueSkyIcon";
 import CopiedTooltip, { useCopyWithTooltip } from "./CopiedTooltip";
 import GithubIcon from "../Icons/GithubIcon";
+import { getAssetPath } from "../Utils/assetPath";
 
 const DiscordSocial = { name: "Discord", url: "https://discord.gg/NG5XscM6yt?utm_source=game-dev-tools", icon: () => <DiscordIcon className="size-10 fill-neutral-content" /> }
 const GithubSocial = { name: "GitHub", url: "https://github.com/hrodrick/game-dev-tools?utm_source=game-dev-tools", icon: () => <GithubIcon className="size-10 fill-neutral-content" /> }
