@@ -51,7 +51,7 @@ export default function Footer() {
             <p className="text-sm p-0">If you'd like to support the project, please use the button below or visit the <Link to="/about" className="link">About page</Link> for more details. Every bit of support means a lot!</p>
             <a href='https://ko-fi.com/rosodev?utm_source=game-dev-tools' target='_blank' className="flex justify-center md:justify-start w-64">
                 <button className="btn btn-content-neutral w-64 h-16">
-                    <img className="h-5" src='/assets/icons/ko-fi.webp'/>
+                    <img className="h-5" src={getAssetPath('/assets/icons/ko-fi.webp')}/>
                     Buy me a coffee
                 </button>
             </a>
