@@ -1,5 +1,6 @@
 import React from "react";
 import ToolPageLayout from "../../components/ToolPageLayout";
+import { getAssetPath } from "../../utils/assetPath";
 
 const categories = [
   {
@@ -89,7 +90,7 @@ const categories = [
       {
         title: "Vector Game Icons",
         description: "A huge collection of 4000+ beautiful free game icons made in vector format, ideal for any genre.",
-        image: "/assets/recommendedTools/Game-icons-net.png",
+        image: getAssetPath("/assets/recommendedTools/Game-icons-net.png"),
         url: "https://game-icons.net?utm_source=game-dev-tools",
         tags: ["free"]
       },

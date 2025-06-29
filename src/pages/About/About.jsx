@@ -1,13 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import ToolPageLayout from "../../components/ToolPageLayout";
 import GameCard from "./GameCard";
+import { getAssetPath } from "../../utils/assetPath";
 
 const games = [
   {
     title: "Brickotori",
     description: "A cozy brick building sandbox game! Coming soon! Join the newsletter to be notified about free beta testings, demos, and updates!",
-    image: "/assets/games/brickotori-logo.png",
+    image: getAssetPath("/assets/games/brickotori-logo.png"),
     url: "https://anawimstudios.eo.page/brickotori?utm_source=game-dev-tools",
     btnText: "Join the newsletter!",
     btnStyle: "btn btn-neutral"
